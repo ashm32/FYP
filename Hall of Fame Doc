@@ -1,0 +1,329 @@
+Hall of fame FYP
+
+Monthly Checklist
+October:
+November:
+December:
+January:
+February:
+March:
+April:
+Steps to create the website:
+1. Define the Purpose and Scope:
+Purpose:
+Scope:
+Similar Platforms
+Features & Functions
+2. Web development approach and technology stack
+Development methodology
+3. Plan and Design the Website:
+1. Determine the Purpose:
+2. Identify Key Sections:
+3. Create a Site Map:
+4. Sketch a Wireframe:
+5. Visual Design:
+6. Mobile Responsiveness:
+7. Test and Iterate:
+
+
+
+Monthly Checklist
+October:
+1.	Define the Purpose and Scope: Clearly outline the project's objectives and its intended impact.
+2.	Investigate existing platforms and tools in a similar domain.
+3.	Begin drafting the features and functionalities of the platform.
+4.	Research and choose an appropriate web development approach and technology stack.
+5.	Revise the Software Development Life Cycle (SDLC) cycle and select a development methodology.
+ 
+November:
+1.	Plan and Design the Website: Create wireframes and define the structure of the website.
+2.	Develop a backlog of features and prioritise them.
+3.	Study related tools and platforms for inspiration.
+4.	Start drafting the initial structure and outline of the final year report.
+ 
+December:
+1.	Begin implementing the backend of the platform, focusing on core functionalities.
+2.	Complete refining the report structure, adding sections and content- term 1 deadline.
+ 
+January:
+1.	Develop the Frontend: Design and create the user interface and user experience (UI/UX) elements.
+2.	Implement and test essential frontend features.
+3.	Start testing the platform for defects and bugs.
+4.	Review and revise features based on feedback.
+ 
+February:
+1.	Implement Student Project Submission & Employer Networking features.
+2.	Enable the Lecturer Showcase and Promotion functionality.
+3.	Begin working on user authentication for students, lecturers, and employers.
+4.	Conduct usability testing on the platform's functionalities.
+5.	Begin writing the final year report and check the quality of references.
+ 
+March:
+1.	Refine and enhance platform features based on usability testing results.
+2.	Continue writing and structuring the final year report.
+3.	Review and improve sentences and the overall structure of the report.
+4.	Start preparations for the platform's demo and presentation.
+5.	Ensure that related work and references in the report meet quality standards.
+ 
+April:
+1.	Prepare and practise for presenting the platform's demo, creating a compelling presentation.
+2.	Complete and submit the final year report by the end of April.
+ 
+
+
+Steps to create the website:
+1. Define the Purpose and Scope:
+   Clearly define the purpose of "The Hall of Fame" and determine the scope of projects you want to showcase. This will help you establish criteria for project submissions and ensure consistency.
+
+2. Choose a Web Development Approach:
+   Decide whether you want to develop the website from scratch or use a website builder or content management system (CMS) like WordPress, Wix, or Squarespace. If you have web development skills, building from scratch offers more flexibility, but using a website builder or CMS can be quicker and easier.
+
+3. Plan and Design the Website:
+   Consider the layout, structure, and design elements of your website. Determine the sections you'll need, such as a home page, project submission form, project archive, about page, etc. Sketch out a wireframe or use design tools to create a visual representation of your website's structure.
+
+4. Implement the Backend:
+   If you're building from scratch, choose a programming language (e.g., Python, JavaScript) and a web framework (e.g., Django, Flask, Ruby on Rails) to handle the backend functionality. This includes creating a database to store project submissions and building an authentication system for students and lecturers.
+
+5. Develop the Frontend:
+   Create the user interface (UI) of your website using HTML, CSS, and JavaScript. Ensure the design is user-friendly, visually appealing, and responsive across different devices. Consider incorporating features like search functionality, filters, and project categorization to enhance user experience.
+
+6. Implement Project Submission:
+   Develop a form where students can submit a summary of their projects. Include fields for project title, description, team members, technologies used, and any other relevant details. Validate and process the form data on the backend, store it in the database, and send notifications to the relevant parties.
+
+7. Enable Lecturer Showcase and Promotion:
+   Create an administrative panel or dashboard where lecturers can review submitted projects and choose which ones to showcase on the home page. Add functionality to promote projects, write project descriptions, and manage the content displayed on the home page.
+
+8. Implement User Authentication:
+   Set up user authentication to differentiate between students and lecturers. This ensures that only authorised individuals can submit projects or modify the showcased content. You can use authentication libraries, frameworks, or built-in features depending on your chosen web development approach. Remember to consider privacy and data protection regulations when handling personal information of students. It's essential to obtain proper consent and handle data securely.
+
+9. Test and Refine:
+   Thoroughly test your website to ensure it functions as intended. Check for any bugs, usability issues, or security vulnerabilities. Gather feedback from users and make necessary refinements to improve the overall user experience.
+
+10. Final year Report
+
+October:
+1. Define the Purpose and Scope:
+Purpose:
+The purpose of "The Hall of Fame" is to provide a platform for showcasing and celebrating outstanding student projects which lecturers have selected. 
+
+1. Recognition: To recognize and acknowledge the hard work and achievements of students in various academic projects.
+
+2. Networking: To facilitate networking opportunities for students by presenting their projects to colleagues, friends, and potential employers.
+
+3. Promotion: To promote and highlight exceptional student projects, giving them visibility within and outside the academic community.
+
+Scope:
+The scope of "The Hall of Fame" is centred around academic projects, and it encompasses the following key aspects:
+
+1. Project Types: The platform will feature a wide range of academic projects from various disciplines, such as research papers, innovative solutions, creative works, and more.
+
+2. Submissions: Students will be able to submit summaries of their projects, including project details, objectives, outcomes, and any associated media (e.g., images, videos, documents).
+
+3. Selection Process: Lecturers will have the authority to review and select projects for promotion on the homepage. The selection criteria should be well-defined to ensure consistency and fairness. Criteria might include innovation, impact, quality, and relevance to academic goals. Criteria might include originality, transferable skills, quality, and academic excellence.
+
+4. Homepage Showcase: The selected projects will be prominently showcased on the homepage, providing maximum visibility to both the academic community and potential employers.
+
+5. User Engagement: The platform will encourage user engagement by allowing visitors to like, comment on, and share featured projects.
+
+6. Networking Opportunities: Students will have the chance to connect with colleagues and potential employers through the platform, fostering a sense of community and professional growth.
+
+7. Promotion Beyond Academic Boundaries: While the primary focus is on the academic community, "The Hall of Fame" can also serve as a bridge to connect students with potential employers and industry partners.
+
+8. Archival and Historical Value: The platform may choose to archive past projects to maintain a historical record of student achievements.
+Similar Platforms
+
+1. LinkedIn: Liking Features:
+User Interface: The like feature is usually represented as a thumbs-up icon or similar symbol. Users can click or tap this icon to express their appreciation for posts or content shared by others.
+Backend Development: Behind the scenes, LinkedIn's backend records user interactions. When a user clicks the "like" button, a record is created in the database, associating the like with the specific content and the user who liked it. This information is then used to display the number of likes and who liked a particular post.
+Real-time Updates: When a user likes something, LinkedIn typically updates the like count and may notify the content creator about the like.
+2. Behance: Filter feature: 
+Creative Field:
+Allow students to categorise their projects into various creative fields, such as "Graphic Design," "Web Development," "Business," etc.
+Enable users to filter projects based on these fields. For instance, someone interested in graphic design can select this filter to see related projects.
+Location:
+Implement location-based filtering, where students are based (what location they want to be shared with employers)
+Users can filter projects by the location of the students, which can be particularly useful for local employers.
+Tools:
+Encourage students to mention the tools and technologies they used in their projects, e.g., "Photoshop," "Python," "AutoCAD."
+Implement filtering options that allow users to search for projects created using specific tools. This can help employers find students with skills in the tools they require.
+3. GitHub: Introduce version control, collaborative project development, code repositories, and issue tracking, which are essential for tech-related projects and not typically offered by Behance.
+
+4. University Websites: Many universities have their own platforms for students to showcase their academic projects and achievements, often linked to specific departments or courses.
+
+5. Portfolio Websites: Tools like WordPress or website builders like Wix and Squarespace enable individuals to create custom portfolio websites where they can showcase their work, including academic projects.
+Features & Functions
+
+Homepage:
+- Displays projects handpicked by lecturers from student submissions.
+- Provides an overview of recent activities and options to manage the platform for lecturers.
+- Showcases the top 15 monthly projects before moving them to the project archive.
+
+Project Submission Form:
+- Allows students to upload their projects.
+- Collects project details, including project title, description, area/type (e.g., cybersecurity), and a link to their project.
+- Enables students to submit their work for consideration.
+
+Project Archive:
+- Stores profiles of student projects that have transitioned from the homepage.
+- Allows filtering by date and project area/type.
+- Includes a comment section and options for employers to connect directly with students.
+
+User Accounts:
+- Provides separate login interfaces for lecturers, students, and employers.
+- Lecturers have admin controls, including the ability to review and post projects.
+- Students can submit projects and interact with employers.
+- Employers can view student projects and reach out to students.
+
+Project Review and Selection (Lecturers):
+- Lecturers can review student submissions.
+- Criteria for project selection include innovation, impact, quality, and academic relevance.
+- Lecturers can rank projects based on these criteria before posting them.
+
+User Engagement:
+- Encourages user engagement by allowing likes, comments, and shares on featured projects.
+- Facilitates interaction within the community.
+
+Professional Networking:
+- Allows students to connect with employers and industry professionals.
+- Provides a platform for potential internships, job offers, and mentorship opportunities.
+
+About Page:
+- Explains the purpose and details behind the website.
+- Offers information about the creator or team behind the project.
+
+Contact Page:
+- Includes a means for visitors to reach out with questions or inquiries.
+
+Data Tracking (Employers):
+- Tracks and records data on employer engagement with student projects.
+
+Archival System:
+- Archives published projects after a set period (e.g., a year) to maintain a historical record of student achievements.
+
+Contact Student:
+- Allows employers to request the students email, once displayed a pop up asking did you contact the student will appear, this will enable us to monitor student employer engagement. 
+
+
+
+2. Web development approach and technology stack
+Youtube search:
+
+1. Web Development Backend Tutorial: Start with a general search for web development backend tutorials. This will give you a broad overview of backend development.
+
+2. User Authentication Tutorial: Look for tutorials on implementing user authentication. This is crucial for user login.
+
+3. File Upload in Web Development Tutorial: Find tutorials on how to enable users to upload files, such as project submissions. You may want to include specific technologies like "Node.js file upload" or "Django file upload."
+
+4. Database Integration Tutorial: Search for tutorials on how to integrate a database for storing projects and user data. Include the database system you plan to use, like "MySQL database integration."
+
+5. Lecturer Review System Tutorial: To enable lecturers to filter and review projects, look for tutorials on building a review system or an admin panel. This might also involve learning about user roles and permissions.
+
+6. Your Preferred Web Framework Tutorial: If you've chosen a web framework for your project (e.g., Django, Ruby on Rails, Express.js), search for tutorials specific to that framework.
+
+When you use these search terms on YouTube, you should be able to find various tutorials that cover different aspects of your project's backend development. Be sure to watch tutorials that match the technologies and programming languages you plan to use for your project. It's a good idea to follow along with hands-on tutorials to gain practical experience.
+
+Development methodology
+1. MERN Stack (MongoDB, Express.js, React, Node.js):
+   - MongoDB: A NoSQL database for storing project data and user information.
+   - Express.js: A Node.js framework for building the backend API and handling user authentication.
+   - React: A JavaScript library for creating the user interface, allowing for dynamic and responsive frontend.
+   - Node.js: A runtime environment for running server-side code, handling API requests, and user authentication.
+
+2. MEAN Stack (MongoDB, Express.js, Angular, Node.js):
+   - Similar to MERN, but with Angular as the frontend framework instead of React. Angular provides a more opinionated structure for frontend development.
+
+3. LAMP Stack (Linux, Apache, MySQL, PHP):
+   - Linux: The server's operating system.
+   - Apache: A web server for hosting the website.
+   - MySQL: A relational database for storing project data and user information.
+   - PHP: A server-side scripting language for building the backend and handling user authentication.
+
+4. Ruby on Rails:
+   - Ruby on Rails is a robust and opinionated web framework that can handle both the backend and frontend. It's known for its convention over configuration (CoC) and don't repeat yourself (DRY) principles.
+
+5. Django (Python):
+   - Django is a high-level Python web framework that is great for rapid development. It includes built-in features for user authentication and admin panels.
+
+6. ASP.NET (C#):
+   - If you prefer Microsoft technologies, ASP.NET with C# can be used for the backend. It offers robust security features and authentication options.
+
+7. Java Spring Boot:
+   - For Java enthusiasts, Spring Boot is a powerful and highly customizable framework that can be used for both backend and frontend development.
+
+8. Firebase:
+   - Firebase is a Backend-as-a-Service (BaaS) platform by Google. It provides real-time database, authentication, and hosting services. It's great for rapid development and is often used for projects with user authentication and data storage needs.
+
+9. Docker and Kubernetes:
+   - These containerization and orchestration tools can be used to deploy and manage your application and database containers effectively.
+
+
+
+3. Plan and Design the Website:
+1. Determine the Purpose:
+The purpose of the Hall of Fame website is threefold:
+Showcasing Outstanding Student Projects: The website provides a platform for lecturers to exhibit exceptional student projects, celebrating academic excellence and innovation.
+Fostering Academic Community: It fosters a sense of community among students and individuals sharing similar academic interests. Users can explore projects categorised by specific project area types, encouraging knowledge sharing and inspiration.
+Facilitating Employer-Student Connections: The website also serves as a bridge between potential employers and talented students. Employers can browse student profiles and reach out directly to students, creating valuable opportunities for career development.
+2. Identify Key Sections:
+Homepage:
+- Showcases top 15 monthly projects.
+- Features projects handpicked by lecturers based on criteria like innovation, impact, quality, and academic relevance.
+- Allows viewers to like, shows appreciation and community interaction.
+- Allows students to be tagged.
+- Offers direct employer-student connection options.
+- Tracks and displays data on employer engagement.
+
+Project Archive Page:
+- Stores profiles of student projects that have moved from the homepage.
+- Offers filtering options by date and project area/type.
+- Maintains a comment section for interaction.
+- Provides options for employers to connect with students, similar to the homepage.
+About Page:
+- Explains the purpose of the website.
+- Share details about the creator of the website.
+Contact Page - Provides a means for visitors to reach out with inquiries or questions.
+Login Page:
+Lecturers (Admin):
+1. Dashboard: After logging in, lecturers are directed to their dashboard, which serves as their central command hub. The dashboard provides an overview of recent activities and various options to effectively manage the platform.
+   - View Submitted Projects: Lecturers can easily access a dedicated page by clicking the "View Submitted Projects" button. This page displays student submissions in a convenient grid format, allowing lecturers to quickly scan through the projects.
+     - Project Details: Clicking on a project tile in the grid opens up a detailed view. Here, lecturers can examine key project information, including the title, description, and deployed link. This comprehensive view equips lecturers with the necessary details to make informed decisions.
+     - Post a Project: Within the detailed project view, lecturers have the option to "Post Project." Clicking this button initiates a process where lecturers assess the project against well-defined criteria, including innovation, impact, quality, and academic relevance. Lecturers can rank these criteria to maintain consistency and fairness in project selection.
+   - Employer Interaction Data: Another essential feature on the dashboard is a section that provides data on how many employers have reached out to students. This data gives lecturers insights into the platform's effectiveness in connecting students with potential employers.
+   - Project Archiving: As part of platform maintenance, lecturers can also manage published projects. Lecturers have the option to archive projects that have been on the homepage for a year. This helps keep the homepage fresh with new content while preserving older projects in the project archive.
+Students:
+Dashboard: Upon logging in, students are directed to their personalised dashboard. This dashboard provides an overview of their own project submissions and interactions within the platform.
+Submit a Project: Students have the option to submit their projects through a dedicated form. They can provide essential project details, including the project title, description, project area/type (e.g., Computer Science or Business), and a link to their deployed project, which can be in the form of a report, a PowerPoint presentation, a video, or other relevant formats.
+Notifications: Students receive real-time notifications within their dashboard. These notifications include messages from employers interested in their projects. When a notification is received, students can view it directly within the dashboard, eliminating the need to navigate to a separate page.
+Project Archive: Once a student's project has been featured on the homepage, it transitions to the Project Archive page. Here, other users can continue to view and interact with the project. Students can also track comments and messages related to their projects.
+Project Interaction: Students can interact with the projects of their peers by liking and commenting on them, fostering a sense of community within the platform.
+Employers:
+1. Dashboard: will open up with 2 buttons:
+2. View Saved Projects: Employers can access a page where they view student profiles and explore their projects. They can reach out to students they are interested in for potential collaborations or hiring.
+3. Manage Communications: This page allows employers to manage their communications with students. They can track messages, responses, and ongoing discussions.
+
+3. Create a Site Map:
+Hall of Fame (Home Page)
+Projects Archive
+About Us
+Contact Us
+Login
+Lecturer’s dashboard
+Student’s dashboard
+Employer’s dashboard
+
+4. Sketch a Wireframe:
+
+
+5. Visual Design:
+Academic Showcase: A theme that incorporates elements such as graduation caps, books, or university crests to symbolise academic achievements.
+Vintage Academic: A theme that draws inspiration from the past, incorporating vintage academic imagery like old books, scrolls, and antique fonts.
+Academic Showcase Theme:
+Colours: Use classic and muted colours like deep blues, rich reds, and elegant greys to evoke a sense of academia and achievement. Ensure these colours are present in your website's header, footer, and buttons.
+Images: Incorporate images of graduation caps, university crests, and books in the website's header, especially on the homepage. These symbols can represent academic achievements and goals.
+Typography: Choose classic and professional fonts for the website's text. Fonts like Times New Roman, Garamond, or Georgia can create an academic ambiance.
+Icons: Include icons that align with academia, such as graduation caps or diplomas, for buttons and interactive elements.
+6. Mobile Responsiveness:
+Ensure that your website design is responsive, meaning it adapts to different screen sizes, including smartphones and tablets. This ensures a good user experience for all visitors.
+7. Test and Iterate:
+Once you've created a visual representation of your website's structure (wireframe), consider getting feedback from others. This can help you refine your design before you start building the actual website. 
+
