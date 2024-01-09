@@ -1,0 +1,262 @@
+/* Reset default styles */
+body, h1, h2, p, ul, li, button, select, label {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar Styles */
+nav {
+    background-color: #0077cc;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #fff;
+    font-size: 1.5em;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+}
+
+li {
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.active a {
+    color: #ffcc00;
+}
+
+/* Hero Section Styles */
+.hero {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Project List Styles */
+.project-list {
+    margin: 20px;
+}
+
+.project {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-info {
+    flex: 1;
+}
+
+.project-actions {
+    display: flex;
+}
+
+/* Filter Section Styles */
+.filter {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+}
+
+label {
+    margin-right: 10px;
+}
+
+select {
+    padding: 8px;
+    margin-right: 20px;
+}
+
+/* Button Styles */
+button {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005580;
+}
+
+/* Login Styles */
+/* Navbar Styles */
+.login nav {
+    background-color: #0077cc;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login .logo {
+    color: #fff;
+    font-size: 1.5em;
+}
+.login{
+    margin-top: 50px;
+}
+.login ul {
+    list-style: none;
+    display: flex;
+}
+
+.login li {
+    margin-right: 20px;
+}
+
+.login a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}
+.login .login {
+    margin: 20px;
+}
+
+.login .login-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.login .login-section,
+.login .signup-section {
+    background-color: #eae9e9;
+    border: 1px solid #ddd;
+    padding: 30px;
+}
+
+.login h2 {
+    margin-bottom: 10px;
+}
+
+/* Form Styles */
+.login form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login label {
+    margin-bottom: 5px;
+}
+
+.login input {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.login button {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #005580;
+}
+
+/* Student Dashboard */
+/* Student Submission Section Styles */
+.student-submission {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #eae9e9;
+    border-radius: 5px;
+    background-color: #ddd;
+}
+
+/* Checkbox Styles */
+.checkbox-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.checkbox-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #includeAuthorDetails {
+            margin-right: 10px;
+        }
+/* Author Details Form Styles */
+.author-details-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-details-form label {
+    margin-bottom: 5px;
+}
+
+.author-details-form input {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+/* Main Submission Form Styles */
+#mainSubmissionForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#mainSubmissionForm label {
+    margin-bottom: 10px;
+}
+
+#mainSubmissionForm input,
+#mainSubmissionForm textarea,
+#mainSubmissionForm select {
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+/* Submit Button Styles */
+#mainSubmissionForm button {
+    background-color: #0077cc;
+    color: #ddd;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#mainSubmissionForm button:hover {
+    background-color: #005580;
+}
