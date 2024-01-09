@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login/Sign Up</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Your Logo</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="student_dash.html">Dashboard</a></li>
+            <!-- Add more menu items -->
+        </ul>
+    </nav>
+
+    <!-- Login/Sign Up Form Section -->
+    <section class="login">
+        <div class="login-grid">
+            <!-- Login Section -->
+            <div class="login-section">
+                <h2>Login</h2>
+                <form id="loginForm" onsubmit="validateLoginForm(); return false;">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" required>
+
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Section -->
+            <div class="signup-section">
+                <h2>Sign Up</h2>
+                <form id="signupForm" onsubmit="validateSignupForm(); return false;">
+                    <label for="signupEmail">Email:</label>
+                    <input type="email" id="signupEmail" required>
+
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" required>
+
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
