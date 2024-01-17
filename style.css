@@ -2,17 +2,25 @@
 body, h1, h2, p, ul, li, button, select, label {
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #f0f0f0; /* Light grey background */
+}
+
+/* Define colors as variables for reusability */
+:root {
+    --dark-grey: #3d3d3d;
+    --light-grey: #e0e0e0;
+    --gold: #ffd700;
+    --darker-grey-hover: #292929;
 }
 
 /* Navbar Styles */
 nav {
-    background-color: #0077cc;
+    background-color: var(--dark-grey); /* Dark grey */
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -44,7 +52,7 @@ a:hover {
 }
 
 .active a {
-    color: #ffcc00;
+    color: var(--gold); /* Gold */
 }
 
 /* Hero Section Styles */
@@ -95,7 +103,7 @@ select {
 
 /* Button Styles */
 button {
-    background-color: #0077cc;
+    background-color: var(--dark-grey);
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -104,13 +112,13 @@ button {
 }
 
 button:hover {
-    background-color: #005580;
+    background-color: var(--darker-grey-hover); /* Slightly darker grey on hover */
 }
 
 /* Login Styles */
 /* Navbar Styles */
 .login nav {
-    background-color: #0077cc;
+    background-color: var(--dark-grey);
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -121,9 +129,11 @@ button:hover {
     color: #fff;
     font-size: 1.5em;
 }
-.login{
+
+.login {
     margin-top: 50px;
 }
+
 .login ul {
     list-style: none;
     display: flex;
@@ -142,6 +152,7 @@ button:hover {
 .login a:hover {
     text-decoration: underline;
 }
+
 .login .login {
     margin: 20px;
 }
@@ -179,7 +190,7 @@ button:hover {
 }
 
 .login button {
-    background-color: #0077cc;
+    background-color: var(--dark-grey);
     color: #fff;
     border: none;
     padding: 10px;
@@ -187,7 +198,7 @@ button:hover {
 }
 
 .login button:hover {
-    background-color: #005580;
+    background-color: var(--darker-grey-hover);
 }
 
 /* Student Dashboard */
@@ -198,7 +209,7 @@ button:hover {
     padding: 20px;
     border: 1px solid #eae9e9;
     border-radius: 5px;
-    background-color: #ddd;
+    background-color: var(--light-grey); /* Light grey background for submission section */
 }
 
 /* Checkbox Styles */
@@ -207,15 +218,17 @@ button:hover {
     align-items: center;
     margin-bottom: 10px;
 }
-.checkbox-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
 
-        #includeAuthorDetails {
-            margin-right: 10px;
-        }
+.checkbox-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#includeAuthorDetails {
+    margin-right: 10px;
+}
+
 /* Author Details Form Styles */
 .author-details-form {
     display: flex;
@@ -229,6 +242,8 @@ button:hover {
 .author-details-form input {
     padding: 8px;
     margin-bottom: 10px;
+    width: 80%;
+    margin-left: 0px;
 }
 
 /* Main Submission Form Styles */
@@ -250,7 +265,7 @@ button:hover {
 
 /* Submit Button Styles */
 #mainSubmissionForm button {
-    background-color: #0077cc;
+    background-color: var(--dark-grey);
     color: #ddd;
     border: none;
     padding: 10px;
@@ -258,5 +273,5 @@ button:hover {
 }
 
 #mainSubmissionForm button:hover {
-    background-color: #005580;
+    background-color: var(--darker-grey-hover);
 }

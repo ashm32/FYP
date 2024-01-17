@@ -1,0 +1,74 @@
+/* Reset default styles */
+body, h1, h2, p, ul, li, button, select, label {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Form Styles */
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.textBoxdiv {
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #888;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #005580;
+}
+
+.login {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login a {
+    text-decoration: none;
+    color: #0077cc;
+    font-weight: bold;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}

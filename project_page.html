@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Project Page</title>
+</head>
+<body>
+    <!-- Navbar (Assuming you have a shared navbar component) -->
+    <?php include 'navbar.html'; ?>
+
+    <!-- Project Page Content -->
+    <section class="project-page">
+        <!-- Display Project Title -->
+        <h2 id="projectTitle"></h2>
+
+        <!-- Display Project Description -->
+        <p id="projectDescription"></p>
+
+        <!-- Display Video Demo -->
+        <div class="video-demo">
+            <h3>Video Demo</h3>
+            <video controls id="videoDemo">
+                <!-- Include the source of the video -->
+            </video>
+        </div>
+
+        <!-- Display Image Gallery -->
+        <div class="image-gallery">
+            <h3>Image Gallery</h3>
+            <div id="imageGallery">
+                <!-- Images will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Display Student Contact Info -->
+        <div class="contact-info">
+            <h3>Contact Information</h3>
+            <p id="studentName"></p>
+            <p id="studentEmail"></p>
+        </div>
+    </section>
+
+    <!-- Footer (Assuming you have a shared footer component) -->
+    <?php include 'footer.html'; ?>
+
+  
+    <script src="script.js"></script>
+</body>
+</html>
