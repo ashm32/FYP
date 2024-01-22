@@ -23,6 +23,7 @@
 
         <!-- Main Submission Form -->
         <form id="mainSubmissionForm" action="process_submission.php" method="POST" enctype="multipart/form-data" onsubmit="validateMainSubmission(); return false;">
+        
             <label for="projectName">Project Name:</label>
             <input type="text" id="projectName" required placeholder="Enter the project name">
 
@@ -76,10 +77,12 @@
             </div>
 
             <!-- Submit Button for Main Submission Form -->
-            <button type="submit">Submit Project</button>
+            <button type="button" onclick="validateMainSubmission()">Submit Project</button>
         </form>
     </section>
 
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
+
+    <script src="ajaxScript.js"></script>
 </body>
 </html>
