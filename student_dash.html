@@ -13,7 +13,7 @@
         <div class="logo">Your Logo</div>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <!-- Add more menu items -->
+            <!-- Add more menu items later-->
         </ul>
     </nav>
 
@@ -22,7 +22,7 @@
         <h2>Make a Submission</h2>
 
         <!-- Main Submission Form -->
-        <form id="mainSubmissionForm" action="process_submission.php" method="POST" enctype="multipart/form-data" onsubmit="validateMainSubmission(); return false;">
+        <form id="mainSubmissionForm" action="process_submission.php" method="POST" enctype="multipart/form-data">
         
             <label for="projectName">Project Name:</label>
             <input type="text" id="projectName" required placeholder="Enter the project name">
@@ -35,18 +35,14 @@
          
             <label for="projectField">Project Field:</label>
             <select id="projectField" required>
-                <!-- Initial blank option -->
                 <option value="" disabled selected>Select Project Field</option>
-                <!-- Project field options -->
                 <option value="field1">Field 1</option>
                 <option value="field2">Field 2</option>
             </select>
             
             <label for="projectYear">Project Year:</label>
             <select id="projectYear" required>
-                <!-- Initial blank option -->
                 <option value="" disabled selected>Select Project Year</option>
-                <!-- Project year options -->
                 <option value="2022">2022</option>
                 <option value="2023">2023</option>
             </select>
@@ -64,7 +60,7 @@
                 <label for="includeAuthorDetails">Include Author's Details</label>
             </div>
 
-            <!-- Author Details Form, hide by default -->
+            <!-- Author Details Form, hidden by default -->
             <div class="author-details-form" id="authorDetailsForm" style="display: none;">
                 <label for="authorFirstName">First Name:</label>
                 <input type="text" id="authorFirstName" placeholder="Enter Your First Name">
@@ -73,7 +69,7 @@
                 <input type="text" id="authorLastName" placeholder="Enter Your Last Name">
                 <br>
                 <label for="authorEmail">Your Email:</label>
-                <input type="email" id="authorEmail" placeholder="Enter The Email Address You'd Like To Be Contacted On">
+                <input type="email" id="authorEmail" placeholder="Enter Your Email">
             </div>
 
             <!-- Submit Button for Main Submission Form -->
@@ -82,7 +78,7 @@
     </section>
 
     <script defer src="script.js"></script>
-
-    <script src="ajaxScript.js"></script>
+    <script defer src="ajaxScript.js"></script>
+    
 </body>
 </html>
