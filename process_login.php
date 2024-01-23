@@ -8,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // Check if entered credentials match lecturer credentials
-    $lecturerUsername = "lecturer@example.com";  // Change this to the desired lecturer email later
+    // Check if input matches lecturer credentials
+    $lecturerUsername = "lecturer@example.com";  // lecturers have shared account
     $lecturerPasswordHash = password_hash("lecturer_password", PASSWORD_DEFAULT);
 
     if ($email === $lecturerUsername && password_verify($password, $lecturerPasswordHash)) {
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Attempt to log in as a regular user
+    // Checks if logged in as a regular user
     $connAuthentication = connectToDatabase("user_authentication");
     $query = "SELECT * FROM users WHERE email = ?";
     
@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
 
             if ($user && password_verify($password, $user['password'])) {
-                // Redirect to student dashboard
+                // Redirect to student dashboard page
                 header('Location: student_dash.html');
                 exit();
             } else {
-                // Invalid credentials, handle appropriately (e.g., display error message)
+                // Invalid input, display error message
                 header('Location: login.html');
                 exit();
             }
