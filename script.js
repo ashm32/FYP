@@ -1,85 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Student Submission</title>
-</head>
+// Function to reset previous error messages
+function resetErrors(form) {
+    const errorMessages = form.querySelectorAll('.error');
+    errorMessages.forEach((errorMsg) => {
+        errorMsg.remove();
+    });
+}
 
-<body>
-    <!-- Navbar -->
-    <nav>
-        <div class="logo">Your Logo</div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <!-- Add more menu items -->
-        </ul>
-    </nav>
+// Function to display an error message
+function showError(form, message) {
+    const errorElement = document.createElement('p');
+    errorElement.className = 'error';
+    errorElement.textContent = message;
+    form.appendChild(errorElement);
+}
 
-    <!-- Student Submission Section -->
-    <section class="student-submission">
-        <h2>Make a Submission</h2>
+// Function to check if there are any errors
+function hasErrors(form) {
+    return form.querySelectorAll('.error').length > 0;
+}
 
-        <!-- Main Submission Form -->
-        <form id="mainSubmissionForm" action="process_submission.php" method="POST" enctype="multipart/form-data" onsubmit="validateMainSubmission(); return false;">
-            <label for="projectName">Project Name:</label>
-            <input type="text" id="projectName" required placeholder="Enter the project name">
+// Function to validate signup form
+function validateForm(event) {
+    const form = event.target;
+    event.preventDefault();
+    resetErrors(form);
 
-            <label for="projectSummary">Project Summary:</label>
-            <textarea id="projectSummary" required placeholder="Enter a brief summary of the project"></textarea>
+    const firstName = form.querySelector('input[name="firstName"]').value;
+    const lastName = form.querySelector('input[name="lastName"]').value;
+    const email = form.querySelector('input[name="email"]').value;
+    const password = form.querySelector('input[name="password"]').value;
 
-            <label for="projectDetails">Project Details:</label>
-            <textarea id="projectDetails" required placeholder="Enter detailed information about the project"></textarea>
-         
-            <label for="projectField">Project Field:</label>
-            <select id="projectField" required>
-                <!-- Initial blank option -->
-                <option value="" disabled selected>Select Project Field</option>
-                <!-- Project field options -->
-                <option value="field1">Field 1</option>
-                <option value="field2">Field 2</option>
-            </select>
-            
-            <label for="projectYear">Project Year:</label>
-            <select id="projectYear" required>
-                <!-- Initial blank option -->
-                <option value="" disabled selected>Select Project Year</option>
-                <!-- Project year options -->
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-            </select>
+    if (!isValidName(firstName)) {
+        showError(form, 'First name is invalid');
+    }
 
-            <!-- File input for video -->
-            <label for="videoUpload">Video Upload:</label>
-            <input type="file" id="videoUpload" accept="video/*">
+    if (!isValidName(lastName)) {
+        showError(form, 'Last name is invalid');
+    }
 
-            <!-- File input for image -->
-            <label for="imageUpload">Image Upload:</label>
-            <input type="file" id="imageUpload" accept="image/*">
+    if (!isValidEmail(email)) {
+        showError(form, 'Email is invalid');
+    }
 
-            <div class="checkbox-section">
-                <input type="checkbox" id="includeAuthorDetails" onchange="toggleAuthorDetails()">
-                <label for="includeAuthorDetails">Include Author's Details</label>
-            </div>
+    if (!isValidPassword(password)) {
+        showError(form, 'Password is invalid');
+    }
 
-            <!-- Author Details Form, hide by default -->
-            <div class="author-details-form" id="authorDetailsForm" style="display: none;">
-                <label for="authorFirstName">First Name:</label>
-                <input type="text" id="authorFirstName" placeholder="Enter Your First Name">
-                <br>
-                <label for="authorLastName">Last Name:</label>
-                <input type="text" id="authorLastName" placeholder="Enter Your Last Name">
-                <br>
-                <label for="authorEmail">Your Email:</label>
-                <input type="email" id="authorEmail" placeholder="Enter The Email Address You'd Like To Be Contacted On">
-            </div>
+    if (!hasErrors(form)) {
+        form.submit();
+    }
+}
 
-            <!-- Submit Button for Main Submission Form -->
-            <button type="button" onclick="validateMainSubmission()">Submit Project</button>
-        </form>
-    </section>
+function toggleAuthorDetails() {
+    const authorDetailsForm = document.getElementById('authorDetailsForm');
+    const includeAuthorDetails = document.getElementById('includeAuthorDetails');
 
-    <script src="script.js"></script>
-</body>
-</html>
+    // Toggle the display of the author details form depending on checkbox
+    authorDetailsForm.style.display = includeAuthorDetails.checked ? 'block' : 'none';
+}
+
+// Main Submission Form Validation
+function validateMainSubmission() {
+    const form = document.getElementById('mainSubmissionForm');
+
+    const projectName = form.querySelector('#projectName').value;
+    const projectSummary = form.querySelector('#projectSummary').value;
+    const projectDetails = form.querySelector('#projectDetails').value;
+    const projectField = form.querySelector('#projectField').value;
+    const projectYear = form.querySelector('#projectYear').value;
+    const videoUpload = form.querySelector('#videoUpload').value;
+    const imageUpload = form.querySelector('#imageUpload').value;
+    const includeAuthorDetails = form.querySelector('#includeAuthorDetails').checked;
+
+    // Validation for required fields
+    if (!projectName || !projectSummary || !projectDetails || !projectField || !projectYear || !videoUpload || !imageUpload) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    // Validation for email if author details are included
+    if (includeAuthorDetails) {
+        const authorFirstName = form.querySelector('#authorFirstName').value;
+        const authorLastName = form.querySelector('#authorLastName').value;
+        const authorEmail = form.querySelector('#authorEmail').value;
+
+        // Validate email using a regular expression
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(authorEmail)) {
+            alert('Invalid author email address');
+            return;
+        }
+
+        // Validate other author details 
+        if (!authorFirstName || !authorLastName) {
+            alert('Please fill in all author details.');
+            return;
+        }
+    }
+
+    // If all fields are valid, submit the project
+    alert('Project submitted successfully!');
+
+    // Clear the form fields
+    clearForm(form);
+}
+
+// Clear the form after submission
+function clearForm(form) {
+    const formElements = form.elements;
+
+    for (let i = 0; i < formElements.length; i++) {
+        if (['input', 'textarea', 'select'].includes(formElements[i].tagName.toLowerCase())) {
+            formElements[i].value = '';
+        }
+    }
+
+    form.querySelector('#includeAuthorDetails').checked = false;
+    form.querySelector('#authorDetailsForm').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Main Submission Form Event Listener
+    const mainSubmissionForm = document.getElementById('mainSubmissionForm');
+    console.log('mainSubmissionForm:', mainSubmissionForm);
+
+    if (mainSubmissionForm) {
+        mainSubmissionForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            validateMainSubmission();
+        });
+    }
+
+    // Signup Form Event Listener
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', validateForm);
+    }
+
+    // Event listeners
+    const includeAuthorDetailsCheckbox = document.getElementById('includeAuthorDetails');
+    if (includeAuthorDetailsCheckbox) {
+        includeAuthorDetailsCheckbox.addEventListener('change', toggleAuthorDetails);
+    }
+
+    // project_page needs editing
+    document.addEventListener('DOMContentLoaded', function () {
+        // Fetch project details from project_submission database 
+        const projectDetails = {
+            title: "Project Title",
+            description: "Project Description",
+            videoSource: "video.mp4",
+            images: ["image1.jpg", "image2.jpg"],
+            studentName: "Student Name",
+            studentEmail: "student@example.com"
+        };
+
+        // Populate placeholders with project details
+        document.getElementById('projectTitle').innerText = projectDetails.title;
+        document.getElementById('projectDescription').innerText = projectDetails.description;
+
+        // Set video source
+        document.getElementById('videoDemo').src = projectDetails.videoSource;
+
+        // Populate image gallery
+        const imageGallery = document.getElementById('imageGallery');
+        projectDetails.images.forEach(image => {
+            const imgElement = document.createElement('img');
+            imgElement.src = image;
+            imageGallery.appendChild(imgElement);
+        });
+
+        // Populate student contact info
+        document.getElementById('studentName').innerText = `Student: ${projectDetails.studentName}`;
+        document.getElementById('studentEmail').innerText = `Email: ${projectDetails.studentEmail}`;
+    });
+
+
+});
