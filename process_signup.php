@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert user data into the 'users' table
     $query = "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
     
-    // Use a try-catch block to handle any potential exceptions
+    // try-catch block to handle any potential exceptions
     try {
-        $connAuthentication = connectToDatabase("user_authentication"); // Connect to the correct database
-        $stmt = $connAuthentication->prepare($query); // Use $connAuthentication instead of $connProject
+        $connAuthentication = connectToDatabase("user_authentication"); e
+        $stmt = $connAuthentication->prepare($query); 
 
         if ($stmt) {
             $stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
@@ -33,10 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 );
 
                 // Redirect based on user role
-                $userId = $stmt->insert_id; // Assuming user_id is auto-incremented
+                $userId = $stmt->insert_id; 
                 $redirectUrl = determineRedirectUrl($userId);
                 header("Location: $redirectUrl");
-                exit(); // Ensure script stops executing after redirection
+                exit(); // Ensure script stops after redirection
             } else {
                 // Registration failed
                 $response = array(
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 );
             }
 
-            // Close the database statement
+            // Close the database 
             $stmt->close();
         } else {
             throw new Exception("Failed to prepare the SQL statement.");
@@ -58,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
     }
 
-    // No need to close the database connection here
 
     // Send JSON response
     header('Content-Type: application/json');
@@ -71,11 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Function to determine the appropriate dashboard based on user role
 function determineRedirectUrl($userId) {
-    // Implement your logic here to determine whether the user is a student or lecturer
-    // For example, you might check a 'user_role' field in the database
-
-    // Replace the following lines with your actual logic
-    $isStudent = true; // Replace this with your logic
+    $isStudent = true; 
     if ($isStudent) {
         return 'student_dash.html';
     } else {
