@@ -1,35 +1,35 @@
-// Ensures dom is loaded before executing
-document.addEventListener('DOMContentLoaded', function () { 
+// Ensures DOM is loaded before executing
+document.addEventListener('DOMContentLoaded', function () {
     console.log('DOMContentLoaded event fired');
 
-    // Get the signupForm element
-    const signupForm = document.getElementById('signupForm');
-
-    // Check if signupForm is found
-    if (!signupForm) {
-        console.error('Signup form not found!');
-        return;
-    }
-
     // Function to reset previous error messages
-    function resetErrors() {
-        const errorMessages = signupForm.querySelectorAll('.error');
+    function resetErrors(form) {
+        const errorMessages = form.querySelectorAll('.error');
         errorMessages.forEach((errorMsg) => {
             errorMsg.remove();
         });
     }
 
     // Function to display an error message
-    function showError(message) {
+    function showError(form, message) {
+        // Find or create a container for error messages
+        let errorContainer = form.querySelector('.error-container');
+        if (!errorContainer) {
+            errorContainer = document.createElement('div');
+            errorContainer.className = 'error-container';
+            form.appendChild(errorContainer);
+        }
+
+        // Append error message to the container
         const errorElement = document.createElement('p');
         errorElement.className = 'error';
         errorElement.textContent = message;
-        signupForm.appendChild(errorElement);
+        errorContainer.appendChild(errorElement);
     }
 
     // Function to check if there are any errors
-    function hasErrors() {
-        return signupForm.querySelectorAll('.error').length > 0;
+    function hasErrors(form) {
+        return form.querySelectorAll('.error').length > 0;
     }
 
     // Function to validate name
@@ -54,42 +54,42 @@ document.addEventListener('DOMContentLoaded', function () {
         // Prevent the form from submitting
         event.preventDefault();
 
-        // Reset previous error messages
-        resetErrors();
+        // Get the form
+        const form = event.target;
 
-        // Get form inputs
-        const firstName = signupForm.querySelector('input[name="firstName"]').value;
-        const lastName = signupForm.querySelector('input[name="lastName"]').value;
-        const email = signupForm.querySelector('input[name="email"]').value;
-        const password = signupForm.querySelector('input[name="password"]').value;
+        // Reset previous error messages
+        resetErrors(form);
+
+        // Get form inputs (sign up)
+        const firstName = form.querySelector('input[name="firstName"]').value;
+        const lastName = form.querySelector('input[name="lastName"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const password = form.querySelector('input[name="password"]').value;
 
         // Validate inputs
         if (!isValidName(firstName)) {
-            showError('First name is invalid');
+            showError(form, 'First name is invalid');
         }
 
         if (!isValidName(lastName)) {
-            showError('Last name is invalid');
+            showError(form, 'Last name is invalid');
         }
 
         if (!isValidEmail(email)) {
-            showError('Email is invalid');
+            showError(form, 'Email is invalid');
         }
 
         if (!isValidPassword(password)) {
-            showError('Password is invalid');
+            showError(form, 'Password is invalid');
         }
 
         // If there are no errors, submit the form
-        if (!hasErrors()) {
-            signupForm.submit();
+        if (!hasErrors(form)) {
+            form.submit();
         }
     }
 
-    // Event listener for form submission
-    signupForm.addEventListener('submit', validateForm);
-
-    // Function to toggle author details visibility
+    // Author Details: Function to toggle author details visibility
     function toggleAuthorDetails() {
         const authorDetailsForm = document.getElementById('authorDetailsForm');
         const includeAuthorDetails = document.getElementById('includeAuthorDetails');
@@ -98,7 +98,13 @@ document.addEventListener('DOMContentLoaded', function () {
         authorDetailsForm.style.display = includeAuthorDetails.checked ? 'block' : 'none';
     }
 
-    // Main Submission Form Validation
+    // Event listener for includeAuthorDetails checkbox
+    const includeAuthorDetailsCheckbox = document.getElementById('includeAuthorDetails');
+    if (includeAuthorDetailsCheckbox) {
+        includeAuthorDetailsCheckbox.addEventListener('change', toggleAuthorDetails);
+    }
+
+    // Main Submission Form Validation (project submission)
     function validateMainSubmission() {
         const form = document.getElementById('mainSubmissionForm');
 
@@ -123,21 +129,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const authorLastName = form.querySelector('#authorLastName').value;
             const authorEmail = form.querySelector('#authorEmail').value;
 
-            // Validate email using a regular expression
+            // Validate email using standard format
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(authorEmail)) {
                 alert('Invalid author email address');
                 return;
             }
 
-            // Validate other author details as needed
+            // Validate author details
             if (!authorFirstName || !authorLastName) {
                 alert('Please fill in all author details.');
                 return;
             }
         }
 
-        // If all fields are valid, you can proceed with submitting the project
+        // If all fields are valid, proceed with submitting the project
         alert('Project submitted successfully!');
 
         // Clear the form fields
@@ -161,58 +167,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Main Submission Form Event Listener
     const mainSubmissionForm = document.getElementById('mainSubmissionForm');
     console.log('mainSubmissionForm:', mainSubmissionForm);
-
+    // Tells browser not to perform the default form submission action
     if (mainSubmissionForm) {
         mainSubmissionForm.addEventListener('submit', function (event) {
             event.preventDefault();
             validateMainSubmission();
         });
     }
-
-    // Signup Form Event Listener
-    console.log('signupForm:', signupForm);
-    if (signupForm) {
-        signupForm.addEventListener('submit', validateForm);
-    } else {
-        console.error('Signup form not found!');
-    }
-
-    // Event listener for includeAuthorDetails checkbox
-    const includeAuthorDetailsCheckbox = document.getElementById('includeAuthorDetails');
-    if (includeAuthorDetailsCheckbox) {
-        includeAuthorDetailsCheckbox.addEventListener('change', toggleAuthorDetails);
-    }
-
-    // Project page details 
-    document.addEventListener('DOMContentLoaded', function () {
-        // get project details from your database 
-
-        const projectDetails = {
-            title: 'Project Title',
-            description: 'Project Description',
-            videoSource: 'path/to/your/video.mp4',
-            images: ['path/to/image1.jpg', 'path/to/image2.jpg'],
-            studentName: 'Student Name',
-            studentEmail: 'student@example.com'
-        };
-
-        // Populate placeholders with project details
-        document.getElementById('projectTitle').innerText = projectDetails.title;
-        document.getElementById('projectDescription').innerText = projectDetails.description;
-
-        // Set video source
-        document.getElementById('videoDemo').src = projectDetails.videoSource;
-
-        // Populate image gallery
-        const imageGallery = document.getElementById('imageGallery');
-        projectDetails.images.forEach(image => {
-            const imgElement = document.createElement('img');
-            imgElement.src = image;
-            imageGallery.appendChild(imgElement);
-        });
-
-        // Populate student contact info
-        document.getElementById('studentName').innerText = `Student: ${projectDetails.studentName}`;
-        document.getElementById('studentEmail').innerText = `Email: ${projectDetails.studentEmail}`;
-    });
 });
