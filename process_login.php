@@ -2,6 +2,13 @@
 // Include the database connection file
 include '/Applications/MAMP/htdocs/db_connection.php';
 
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Initialise error flag
+$errorFlag = false;
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve login data
@@ -18,10 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Checks if logged in as a regular user
+    // Checks if logged in as a regular user (student)
     $connAuthentication = connectToDatabase("user_authentication");
     $query = "SELECT * FROM users WHERE email = ?";
-    
+
     try {
         $stmt = $connAuthentication->prepare($query);
         if ($stmt) {
@@ -35,23 +42,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header('Location: student_dash.html');
                 exit();
             } else {
-                // Invalid input, display error message
-                header('Location: login.html');
+                // Invalid input, display error message on the webpage and clear the form
+                header('Location: login.html?error=invalid_credentials');
                 exit();
             }
         } else {
-            // Handle failed prepared statement
-            header('Location: login.html');
-            exit();
+            // Handle failed prepared statement and redirect
+            http_response_code(500);  // Internal Server Error
+            echo 'Database error. Please try again later.';
         }
     } catch (Exception $e) {
-        // Handle exceptions, log the error, or display an appropriate message
-        header('Location: login.html');
-        exit();
+        // Handle exceptions, log the error, or display an appropriate message and redirect
+        http_response_code(500);  // Internal Server Error
+        echo 'An unexpected error occurred. Please try again later.';
     }
 } else {
     // Invalid request
-    http_response_code(400);
+    http_response_code(400); 
     echo "Invalid request.";
 }
 ?>
