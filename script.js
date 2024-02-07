@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Validation function
     function validateForm(event) {
+        console.log('Validating form...');
         // Prevent the form from submitting
         event.preventDefault();
-
         // Get the form
         const form = event.target;
 
@@ -68,25 +68,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validate inputs
         if (!isValidName(firstName)) {
+            console.log('First Name:', firstName);
             showError(form, 'First name is invalid');
         }
 
         if (!isValidName(lastName)) {
+            console.log('Last Name:', lastName);
             showError(form, 'Last name is invalid');
         }
 
         if (!isValidEmail(email)) {
+            console.log('Email:', email);
             showError(form, 'Email is invalid');
         }
 
         if (!isValidPassword(password)) {
+            console.log('Password:', password);
             showError(form, 'Password is invalid');
+            // Show password criteria message if password is invalid
+            const passwordCriteria = form.querySelector('#passwordCriteria');
+            if (passwordCriteria) {
+                passwordCriteria.style.display = 'block';
+            }
+        } else {
+            // Hide the password criteria message if password is valid
+            const passwordCriteria = form.querySelector('#passwordCriteria');
+            if (passwordCriteria) {
+                passwordCriteria.style.display = 'none';
+            }
         }
 
         // If there are no errors, submit the form
         if (!hasErrors(form)) {
             form.submit();
         }
+    }
+
+    // Main Submission Form Event Listener
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            validateForm(event);
+        });
     }
 
     // Author Details: Function to toggle author details visibility
@@ -164,14 +188,13 @@ document.addEventListener('DOMContentLoaded', function () {
         form.querySelector('#authorDetailsForm').style.display = 'none';
     }
 
-    // Main Submission Form Event Listener
-    const mainSubmissionForm = document.getElementById('mainSubmissionForm');
-    console.log('mainSubmissionForm:', mainSubmissionForm);
-    // Tells browser not to perform the default form submission action
-    if (mainSubmissionForm) {
-        mainSubmissionForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            validateMainSubmission();
-        });
-    }
+ // Main Submission Form Event Listener
+const mainSubmissionForm = document.getElementById('signupForm');
+if (mainSubmissionForm) {
+    mainSubmissionForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        validateForm(event);
+    });
+}
+
 });
