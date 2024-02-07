@@ -12,15 +12,16 @@
      <nav>
         <div class="logo">Your Logo</div>
         <ul>
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="login.php">Login</a></li>
             <li><a href="student_dash.html">Student Dashboard</a></li>
             <li><a href="lecturers_dash.html">Lecturer Dashboard</a></li>
         </ul>
     </nav>
 
     <form id="signupForm" action="process_signup.php" method="POST">
-        <h1>Sign Up</h1>
+        <h2>New Here?</h2>
+        <h3>Sign Up</h3>
         <div class="textBoxdiv">
             <input type="text" name="firstName" placeholder="First Name" required>
         </div>
@@ -31,15 +32,19 @@
             <input type="email" name="email" placeholder="Email" required>
         </div>
         <div class="textBoxdiv">
-            <input type="password" name="password" placeholder="Password" required>
-            <p>Password must be at least 8 characters long and include at least 1 letter, 1 number, and 1 special character.</p>
-        </div>
+            <input type="password" name="password" id="password" placeholder="Password" required> 
+            <!-- hide criteria as default -->
+            <p id="passwordCriteria" class="criteriaMessage" style="display: none;">Password must: <br> Be at least 8 characters  <br> And include: <br> 1 letter <br>  1 number <br> 1 special character</p>
+        </div>        
         <button type="submit" class="signupBtn">Sign Up</button>
         <div class="login">
-            Already have an account? </br>
-            <a href="login.html">Login</a>
+            <h3>Already have an account?</h3>
+        <h3><a href="login.php">Login</a></h3>
         </div>
     </form>
+
+    
+
     <script defer src="script.js"></script>
     <script defer src="ajaxScript.js"></script>
     
