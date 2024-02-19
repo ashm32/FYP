@@ -10,7 +10,7 @@
 <body>
     <!-- Navbar -->
     <nav>
-        <div class="logo">Your Logo</div>
+        <div class="logo">Aston University’s Hall of Fame</div>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="login.php">Login</a></li>
@@ -58,7 +58,7 @@
             <input type="file" id="imageUpload" accept="image/*">
 
             <div class="checkbox-section">
-                <input type="checkbox" id="includeAuthorDetails" onchange="toggleAuthorDetails()">
+                <input type="checkbox" id="includeAuthorDetails">
                 <label for="includeAuthorDetails">Include Author's Details</label>
             </div>
 
@@ -73,14 +73,11 @@
                 <label for="authorEmail">Your Email:</label>
                 <input type="email" id="authorEmail" placeholder="Enter Your Email">
             </div>
-
             <!-- Submit Button for Main Submission Form -->
-            <button type="button" onclick="validateMainSubmission()">Submit Project</button>
+            <button type="submit">Submit Project</button>
         </form>
     </section>
-
-    <script defer src="script.js"></script>
-    <script defer src="ajaxScript.js"></script>
     
+    <script defer src="script.js"></script>
 </body>
 </html>
