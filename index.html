@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Your Website</title>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav>
-        <div class="logo">Your Logo</div>
+        <div class="logo">Aston University’s Hall of Fame</div>
         <ul>
             <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="login.php">Login</a></li>
             <li><a href="student_dash.html">Student Dashboard</a></li>
             <li><a href="lecturers_dash.html">Lecturer Dashboard</a></li>
         </ul>
@@ -20,8 +24,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Aston University’s Hall of Fame</h1>
-        <p>Submit your work and engage with each other's content!</p>
+        <h1>Submit your work and engage with each other's content!</h1>
     </section>
 
     <!-- Filter Section -->
@@ -31,7 +34,7 @@
             <option value="all">All Fields</option>
             <option value="field1">Field 1</option>
             <option value="field2">Field 2</option>
-            <!-- NEED TO: edit and add field names -->
+            <!-- Add more field options as needed -->
         </select>
 
         <label for="year">Filter by Year:</label>
@@ -39,49 +42,86 @@
             <option value="all">All Years</option>
             <option value="2022">2022</option>
             <option value="2021">2021</option>
-            <!-- NEED TO: edit and add years (only 2024?) -->
+            <!-- Add more year options as needed -->
         </select>
-        
-        <!-- Sorts by year and likes -->
+
         <label for="sort">Sort by:</label>
         <select id="sort">
             <option value="most-liked">Most Liked</option>
             <option value="recent">Recent</option>
-            <!-- NEED TO: add functionality -->
         </select>
     </section>
 
-<!-- Project List Section -->
-<section class="project-list">
-    <div class="project">
-        <div class="project-info">
-            <h2>Project Title 1</h2>
-            <p>Brief description of Project 1.</p>
+    <!-- Project List Section -->
+    <section class="project-list-container">
+        <div class="project-list">
+            <div class="project">
+                <div class="project-info">
+                    <img src="img eg.png" alt="Project 1 Image">
+                    <h2>Project Title 1</h2>
+                    <p>Brief description of Project 1.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
+                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
+                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
+                </div>
+            </div>
+            <div class="project">
+                <div class="project-info">
+                    <img src="img eg.png" alt="Project 2 Image">
+                    <h2>Project Title 2</h2>
+                    <p>Brief description of Project 2.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
+                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
+                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
+                </div>
+            </div>
+            <div class="project">
+                <div class="project-info">
+                    <img src="img eg.png" alt="Project 3 Image">
+                    <h2>Project Title 3</h2>
+                    <p>Brief description of Project 3.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
+                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
+                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
+                </div>
+            </div>
+            <div class="project">
+                <div class="project-info">
+                    <img src="img eg.png" alt="Project 4 Image">
+                    <h2>Project Title 4</h2>
+                    <p>Brief description of Project 4.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
+                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
+                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
+                </div>
+            </div>
+            <div class="project">
+                <div class="project-info">
+                    <img src="img eg.png" alt="Project 5 Image">
+                    <h2>Project Title 5</h2>
+                    <p>Brief description of Project 5.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
+                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
+                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
+                </div>
+            </div>
+            
         </div>
-        <div class="project-actions">
-            <button class="view-project">View Project</button>
-            <button class="like">Like</button>
-            <button class="contact-details">Contact Details</button>
-        </div>
-    </div>
+    </section>
 
-    <div class="project">
-        <div class="project-info">
-            <h2>Project Title 2</h2>
-            <p>Brief description of Project 2.</p>
-        </div>
-        <div class="project-actions">
-            <button class="view-project">View Project</button>
-            <button class="like">Like</button>
-            <button class="contact-details">Contact Details</button>
-        </div>
-    </div>
-    <!-- NEED TO: edit so this is populated by what lecturers submits -->
-</section>
-
-
-<script defer src="script.js"></script>
-<script defer src="ajaxScript.js"></script>
-
+    <script defer src="script.js"></script>
+    <script defer src="ajaxScript.js"></script>
+    <script src="https://kit.fontawesome.com/188d621110.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
