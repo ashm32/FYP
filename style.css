@@ -1,32 +1,34 @@
+
 /* Reset default styles */
-body, h1, h2, p, ul, li, button, select, label {
+body {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    color: #333;
+    /* font-family: 'Arial', sans-serif; */
+    background-image: url('bgimg.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-body {
-    background-color: #f0f0f0; 
-}
-
-/* Colors as variables for reusability */
+/* Define colors as variables for reusability */
 :root {
-    --dark-grey: #3d3d3d;
-    --light-grey: #e0e0e0;
-    --gold: #ffd900ad;
-    --darker-grey-hover: #292929;
-    --aston-purple: #bb00d4;
-    --error-red: #ff0000;
+    --dark-brown: #301f15ad; /* Dark brown */
+    --light-brown: #554436d0; /* Light brown */
+    --gold: rgb(210, 193, 5); /* Gold */
+    --warm-brown: #5a3f06; /* Dark red */
+    --error-red: #ff0000; /* Error red */
 }
 
 /* Navbar Styles */
 nav {
-    background-color: var(--dark-grey); 
+    background-color: var(--dark-brown); /* Dark brown */
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* font-family: 'VT323'; */
+    font-size: 24px;
 }
 
 .logo {
@@ -45,7 +47,7 @@ li {
 
 a {
     text-decoration: none;
-    color: #fff;
+    color: #dedede;
     font-weight: bold;
 }
 
@@ -54,14 +56,35 @@ a:hover {
 }
 
 .active a {
-    color: var(--gold);
+    color: var(--gold); 
 }
 
 /* Hero Section Styles */
 .hero {
-    background-color: #fff;
-    padding: 20px;
+    /* background-color: #dedede7a; */
+    padding: 10px;
+    margin: 20px auto;
     text-align: center;
+    color: white;
+    width: fit-content;
+    
+}
+/* Filter Section Styles */
+.filter {
+    background-color: rgba(229, 229, 229, 0.872);
+    padding: 10px;
+    margin: 20px auto;
+    text-align: center;
+    width: fit-content;
+}
+
+label {
+    margin-right: 10px;
+}
+
+select {
+    padding: 8px;
+    margin-right: 20px;
 }
 
 /* Project List Styles */
@@ -73,18 +96,28 @@ a:hover {
 }
 
 .project {
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #372b2ba5;
+    border: 1px solid #423232;
+    color: white;
     padding: 15px;
     margin-bottom: 10px;
-    width: calc(33.333% - 20px); 
+    width: calc(20% - 20px); /* to fit 5 cards across */
     box-sizing: border-box;
     display: flex;
+    font-family: 'Playfair Display';
     flex-direction: column;
+    transition: transform 0.3s ease; 
 }
 
+.project:hover {
+    transform: scale(1.05); /* increase card size */
+    background-color: #634f15a5;
+    border: 1px solid #4c3d14;
+}
+
+
 .project img {
-    width: 100%; 
+    width: 100%; /* Make the image fill the container */
     height: auto; 
 }
 
@@ -97,40 +130,48 @@ a:hover {
     justify-content: space-between;
 }
 
-/* Filter Section Styles */
-.filter {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px;
-    text-align: center;
+button.medal-icon,
+button.contact-icon, 
+button.view-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; 
+    height: 50px; 
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px; 
+    border-radius: 50%; /* To make it round */
 }
 
-label {
-    margin-right: 10px;
+button.medal-icon:hover,
+button.contact-icon:hover,
+button.view-project:hover {
+    color: var(--gold);
+    background-color: rgba(0, 0, 0, 0.727);
 }
 
-select {
-    padding: 8px;
-    margin-right: 20px;
-}
 
 /* Button Styles */
 button {
-    background-color: var(--dark-grey);
+    background-color: var(--dark-brown); 
     color: #fff;
     border: none;
     padding: 10px 15px;
     margin: 5px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
 }
 
 button:hover {
-    background-color: var(--darker-grey-hover); /* Slightly darker grey on hover */
+    background-color: var(--warm-brown); 
 }
 
 /* Login Styles */
+
 .login-container {
-    background-color: var(--light-grey);
+    background-color: rgba(255, 255, 255, 0.634); 
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
@@ -139,6 +180,7 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /* color: #cbc5c5; */
 }
 
 .login-form {
@@ -157,7 +199,7 @@ input {
 }
 
 .loginBtn {
-    background-color: var(--dark-grey);
+    background-color: var(--dark-brown); 
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -165,7 +207,7 @@ input {
 }
 
 .loginBtn:hover {
-    background-color: var(--darker-grey-hover); 
+    background-color: var(--warm-brown); 
 }
 
 /* Error Message Login.php */
@@ -175,13 +217,15 @@ input {
     text-align: center;
 }
 
-.signup {
+.signup h2{
     text-align: center;
     margin-top: 20px; 
 }
-
+.signup h3 {
+    text-align: center;
+}
 .signup a {
-    color: var(--aston-purple); 
+    color: var(--dark-brown);
     text-decoration: none;
 }
 
@@ -190,11 +234,11 @@ input {
 }
 
 #signupForm {
-    background-color: var(--light-grey);
+    background-color: rgba(255, 255, 255, 0.634); 
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-    width: calc(33.33vw - 160px); /* Adjusted width to match login form */
+    width: calc(33.33vw - 160px); /* 1/3 of width - (4 * padding) */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -202,6 +246,7 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: black;
 }
 
 #signupForm .textBoxdiv {
@@ -212,9 +257,7 @@ input {
     padding: 10px;
     margin-bottom: 10px;
 }
-.textBoxdiv p {
-    text-align: center;
-}
+
 /* Make "new here? sign in" diff box:
 .login {
     color: black;
@@ -232,19 +275,24 @@ input {
     align-items: center;
 } */
 
+.login-form{
+    color: black;
+}
+
 .login {
     display: flex; 
     flex-direction: column; 
     align-items: center; 
+}
 
 .login h3 a {
-    color: var(--aston-purple);
+    color: var(--dark-brown); 
     text-align: center; 
 }
 
 
 #signupForm .signupBtn {
-    background-color: var(--dark-grey);
+    background-color: var(--dark-brown); 
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -252,30 +300,31 @@ input {
 }
 
 #signupForm .signupBtn:hover {
-    background-color: var(--darker-grey-hover); 
+    background-color: var(--warm-brown); 
 }
 
 /* Error Message Styles */
 #signupForm .signup-error {
     display: none; /* Initially hide the error message */
-    color: var(--error-red);
-    margin-top: 10px; 
-    text-align: center;
+    color: var(--error-red); 
+    margin-top: 10px;  
+    text-align: center; 
 }
 
 #signupForm .signup-error.show {
     display: block; /* Show the error message if there is an error */
 }
 
-
 /* Student Dashboard */
+/* Student Submission Section Styles */
 .student-submission {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #eae9e9;
+    border: 1px solid var(--light-brown);
     border-radius: 5px;
-    background-color: var(--light-grey); 
+    background-color: var(--light-brown); 
+    color:white;
 }
 
 /* Checkbox Styles */
@@ -327,7 +376,7 @@ input {
 
 /* Submit Button Styles */
 #mainSubmissionForm button {
-    background-color: var(--dark-grey);
+    background-color: var(--dark-brown);
     color: #ddd;
     border: none;
     padding: 10px;
@@ -335,5 +384,5 @@ input {
 }
 
 #mainSubmissionForm button:hover {
-    background-color: var(--darker-grey-hover);
+    background-color:  var(--warm-brown); 
 }
