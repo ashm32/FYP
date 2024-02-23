@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return regex.test(password);
     }
 
-    // Validation function
-    function validateForm(event) {
+    // Validation function for sign up form
+    function validateSignUpForm(event) {
         // Prevent the form from submitting
         event.preventDefault();
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset previous error messages
         resetErrors(form);
 
-        // Get form inputs (sign up)
+        // Get form inputs
         const firstName = form.querySelector('input[name="firstName"]').value;
         const lastName = form.querySelector('input[name="lastName"]').value;
         const email = form.querySelector('input[name="email"]').value;
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (!isValidPassword(password)) {
-            showError(form, 'Password is invalid');
+            showError(form, 'Password is invalid - Include a letter, number and special character');
         }
 
         // If there are no errors, submit the form
@@ -89,9 +89,84 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Event listener for form submission
+    // Validation function for main submission form
+    function validateMainSubmission(event) {
+        event.preventDefault();
+        const form = event.target;
+
+        const projectName = form.querySelector('#projectName').value;
+        const projectSummary = form.querySelector('#projectSummary').value;
+        const projectDetails = form.querySelector('#projectDetails').value;
+        const projectField = form.querySelector('#projectField').value;
+        const projectYear = form.querySelector('#projectYear').value;
+        const videoUpload = form.querySelector('#videoUpload').value;
+        const imageUpload = form.querySelector('#imageUpload').value;
+
+        if (!projectName || !projectSummary || !projectDetails || !projectField || !projectYear || !videoUpload || !imageUpload) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        const includeAuthorDetails = form.querySelector('#includeAuthorDetails').checked;
+        if (includeAuthorDetails) {
+            const authorFirstName = form.querySelector('#authorFirstName').value;
+            const authorLastName = form.querySelector('#authorLastName').value;
+            const authorEmail = form.querySelector('#authorEmail').value;
+
+            if (!authorFirstName || !authorLastName || !authorEmail) {
+                alert('Please fill in all author details.');
+                return;
+            }
+        }
+
+        alert('Project submitted successfully!');
+        clearForm(form);
+    }
+
+    // Function to clear form after submission
+    function clearForm(form) {
+        form.reset();
+        form.querySelector('#includeAuthorDetails').checked = false;
+        form.querySelector('#authorDetailsForm').style.display = 'none';
+    }
+
+    // Event listener for sign up form submission
     const signupForm = document.getElementById('signupForm');
     if (signupForm) {
-        signupForm.addEventListener('submit', validateForm);
+        signupForm.addEventListener('submit', validateSignUpForm);
+    }
+
+    // Function to toggle author details visibility
+    function toggleAuthorDetails() {
+        const authorDetailsForm = document.getElementById('authorDetailsForm');
+        const includeAuthorDetails = document.getElementById('includeAuthorDetails');
+
+        // Toggle the display of the author details form based on checkbox state
+        authorDetailsForm.style.display = includeAuthorDetails.checked ? 'block' : 'none';
+    }
+
+    // Event listener for includeAuthorDetails checkbox
+    const includeAuthorDetailsCheckbox = document.getElementById('includeAuthorDetails');
+    if (includeAuthorDetailsCheckbox) {
+        includeAuthorDetailsCheckbox.addEventListener('change', toggleAuthorDetails);
+    }
+
+    // Event listener for main submission form submission
+    const mainSubmissionForm = document.getElementById('mainSubmissionForm');
+    if (mainSubmissionForm) {
+        mainSubmissionForm.addEventListener('submit', validateMainSubmission);
+    }
+
+    // Handling invalid password error (login.php)
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (event) {
+            const password = loginForm.querySelector('input[name="password"]').value;
+
+            if (!isValidPassword(password)) {
+                event.preventDefault(); // Prevent form submission
+                showError(loginForm, 'Invalid password');
+            }
+        });
     }
 });
