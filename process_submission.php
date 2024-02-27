@@ -31,7 +31,12 @@ try {
 
         // Execute the prepared statement
         if ($stmt->execute()) {
-            echo "New record created successfully";
+            // Set session variable for success message
+            session_start();
+            $_SESSION['success_message'] = "Project submitted successfully";
+            // Redirect to the homepage
+            header("Location: index.html");
+            exit(); // Stop further execution
         } else {
             // If execution fails, output the MySQL error
             echo "Error: " . mysqli_error($connProject);
