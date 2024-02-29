@@ -1,4 +1,3 @@
-// Ensures DOM is loaded before executing
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOMContentLoaded event fired');
 
@@ -93,20 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateMainSubmission(event) {
         event.preventDefault();
         const form = event.target;
-
-        const projectName = form.querySelector('#projectName').value;
-        const projectSummary = form.querySelector('#projectSummary').value;
-        const projectDetails = form.querySelector('#projectDetails').value;
-        const projectField = form.querySelector('#projectField').value;
-        const projectYear = form.querySelector('#projectYear').value;
-        const videoUpload = form.querySelector('#videoUpload').value;
-        const imageUpload = form.querySelector('#imageUpload').value;
-
-        if (!projectName || !projectSummary || !projectDetails || !projectField || !projectYear || !videoUpload || !imageUpload) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
         const includeAuthorDetails = form.querySelector('#includeAuthorDetails').checked;
         if (includeAuthorDetails) {
             const authorFirstName = form.querySelector('#authorFirstName').value;
@@ -119,21 +104,20 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        alert('Project submitted successfully!');
-        clearForm(form);
-    }
-
-    // Function to clear form after submission
-    function clearForm(form) {
-        form.reset();
-        form.querySelector('#includeAuthorDetails').checked = false;
-        form.querySelector('#authorDetailsForm').style.display = 'none';
+        // If all author details are filled in, submit the form
+        form.submit();
     }
 
     // Event listener for sign up form submission
     const signupForm = document.getElementById('signupForm');
     if (signupForm) {
         signupForm.addEventListener('submit', validateSignUpForm);
+    }
+
+    // Event listener for main submission form submission
+    const mainSubmissionForm = document.getElementById('mainSubmissionForm');
+    if (mainSubmissionForm) {
+        mainSubmissionForm.addEventListener('submit', validateMainSubmission);
     }
 
     // Function to toggle author details visibility
@@ -149,12 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const includeAuthorDetailsCheckbox = document.getElementById('includeAuthorDetails');
     if (includeAuthorDetailsCheckbox) {
         includeAuthorDetailsCheckbox.addEventListener('change', toggleAuthorDetails);
-    }
-
-    // Event listener for main submission form submission
-    const mainSubmissionForm = document.getElementById('mainSubmissionForm');
-    if (mainSubmissionForm) {
-        mainSubmissionForm.addEventListener('submit', validateMainSubmission);
     }
 
     // Handling invalid password error (login.php)
