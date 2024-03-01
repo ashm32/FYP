@@ -6,17 +6,13 @@
     <link rel="stylesheet" href="style.css">
     <title>Sign Up</title>
 </head>
-
 <body>
      <!-- Navbar -->
      <nav>
         <div class="logo">Your Logo</div>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li class="active"><a href="login.php">Login</a></li>
-            <li><a href="student_dash.html">Student Dashboard</a></li>
-            <li><a href="lecturers_dash.html">Lecturer Dashboard</a></li>
-        </ul>
+            <li><a href="index.php">Home</a></li>
+        </ul>  
     </nav>
 
     <form id="signupForm" action="process_signup.php" method="POST">
@@ -33,20 +29,17 @@
         </div>
         <div class="textBoxdiv">
             <input type="password" name="password" id="password" placeholder="Password" required> 
-            <!-- hide criteria as default -->
+            <!-- Display password criteria message -->
             <p id="passwordCriteria" class="criteriaMessage" style="display: none;">Password must: <br> Be at least 8 characters  <br> And include: <br> 1 letter <br>  1 number <br> 1 special character</p>
         </div>        
         <button type="submit" class="signupBtn">Sign Up</button>
         <div class="login">
             <h3>Already have an account?</h3>
-        <h3><a href="login.php">Login</a></h3>
+            <h3><a href="login.php">Login</a></h3>
         </div>
     </form>
 
-    
-
     <script defer src="script.js"></script>
     <script defer src="ajaxScript.js"></script>
-    
 </body>
 </html>
