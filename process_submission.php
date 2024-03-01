@@ -35,7 +35,7 @@ try {
             session_start();
             $_SESSION['success_message'] = "Project submitted successfully";
             // Redirect to the homepage
-            header("Location: index.html");
+            header("Location: index.php");
             exit(); // Stop further execution
         } else {
             // If execution fails, output the MySQL error
