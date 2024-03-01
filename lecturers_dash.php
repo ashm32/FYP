@@ -11,13 +11,11 @@
 <body>
     <!-- Navbar -->
     <nav>
-        <div class="logo">Your Logo</div>
+        <div class="logo">Aston University’s Hall of Fame</div>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li ><a href="login.php">Login</a></li>
-            <li><a href="student_dash.html">Student Dashboard</a></li>
-            <li class="active"><a href="lecturers_dash.html">Lecturer Dashboard</a></li>
-        </ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>        
     </nav>
 
     <!-- Lecturer Dashboard Section -->
