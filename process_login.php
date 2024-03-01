@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-include '/Applications/MAMP/htdocs/db_connection.php';
+include 'db_connection.php';
 
 // Enable error reporting
 error_reporting(E_ALL);
@@ -17,12 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if input matches lecturer credentials
     $lecturerUsername = "lecturer@example.com";  // lecturers have shared account
-    $lecturerPasswordHash = password_hash("lecturer_password", PASSWORD_DEFAULT);
+    $lecturerPasswordHash = "lecturer_password"; 
+    // Debugging: Print out the lecturer's hashed password
+    echo "Stored Lecturer Password Hash: " . $lecturerPasswordHash;
 
     if ($email === $lecturerUsername && password_verify($password, $lecturerPasswordHash)) {
         // Redirect to lecturer dashboard
-        header('Location: lecturers_dash.html');
+        header('Location: lecturers_dash.php');
         exit();
+    } else {
+        // Debugging: Print out the entered password and its hash
+        $enteredPasswordHash = password_hash($password, PASSWORD_DEFAULT);
+        echo "Entered Password: " . $password;
+        echo "Entered Password Hash: " . $enteredPasswordHash;
+
+        // Debugging: Print a message to indicate the comparison failed
+        echo "Password verification failed.";
     }
 
     // Checks if logged in as a regular user (student)
@@ -38,9 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
 
             if ($user && password_verify($password, $user['password'])) {
-                // Redirect to student dashboard page
-                header('Location: student_dash.html');
-                exit();
+                // Set session variables
+                session_start();
+                $_SESSION['user_logged_in'] = true;
+                $_SESSION['user_role'] = 'student'; // student = default, change to 'lecturer' if applicable
+                // Redirect to appropriate dashboard
+                if ($email === $lecturerUsername) {
+                    $_SESSION['user_role'] = 'lecturer';
+                    header('Location: lecturers_dash.php');
+                    exit();
+                } else {
+                    header('Location: student_dash.php');
+                    exit();
+                }
             } else {
                 // Invalid input, display error message on the webpage and clear the form
                 header('Location: login.html?error=invalid_credentials');
