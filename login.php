@@ -9,63 +9,12 @@
 
 <body>
     <!-- Navbar -->
-<nav>
-    <div class="logo">Aston University’s Hall of Fame</div>
-    <ul>
-        <li class="active"><a href="index.html">Home</a></li>
-        <?php
-        // Check if the form is submitted
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Retrieve login data
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-
-            // Check if input matches lecturer credentials
-            $lecturerUsername = "lecturer@example.com";  // lecturers have shared account
-            $lecturerPasswordHash = password_hash("lecturer_password", PASSWORD_DEFAULT);
-
-            if ($email === $lecturerUsername && password_verify($password, $lecturerPasswordHash)) {
-                // Redirect to lecturer dashboard
-                echo '<li><a href="lecturers_dash.html">Lecturer Dashboard</a></li>';
-            } else {
-                // Checks if logged in as a regular user (student)
-                $connAuthentication = connectToDatabase("user_authentication");
-                $query = "SELECT * FROM users WHERE email = ?";
-
-                try {
-                    $stmt = $connAuthentication->prepare($query);
-                    if ($stmt) {
-                        $stmt->bind_param("s", $email);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $user = $result->fetch_assoc();
-
-                        if ($user && password_verify($password, $user['password'])) {
-                            // Redirect to student dashboard page
-                            echo '<li><a href="student_dash.html">Student Dashboard</a></li>';
-                        } else {
-                            // Invalid input, display error message on the webpage and clear the form
-                            header('Location: login.php?error=invalid_credentials');
-                            exit();
-                        }
-                    } else {
-                        // Handle failed prepared statement and redirect
-                        http_response_code(500);  // Internal Server Error
-                        echo 'Database error. Please try again later.';
-                    }
-                } catch (Exception $e) {
-                    // Handle exceptions, log the error, or display an appropriate message and redirect
-                    http_response_code(500);  
-                    echo 'An unexpected error occurred. Please try again later.';
-                }
-            }
-        } else {
-            // Displays login link if the form is not submitted
-            echo '<li><a href="login.php">Login</a></li>';
-        }
-        ?>
-    </ul>
-</nav>
+    <nav>
+        <div class="logo">Aston University’s Hall of Fame</div>
+        <ul>
+            <li><a href="index.php">Home</a></li>
+        </ul>        
+    </nav>
 
     <div class="login-container">
 
