@@ -49,12 +49,12 @@
         </select>
     
         <!-- File input for video -->
-        <!-- <label for="videoUpload">Video Upload:</label> 
-        <input type="file" id="videoUpload" name="videoUpload" accept="video/*"> -->
+        <label for="videoUpload">Video Upload:</label> 
+        <input type="file" id="videoUpload" name="videoUpload" accept="video/*">
     
-        <!-- File input for image -->
-        <!-- <label for="imageUpload">Image Upload:</label>
-        <input type="file" id="imageUpload" name="imageUpload" accept="image/*"> -->
+<!-- File input for image -->
+<label for="imageUpload">Image Upload (Max 5 images):</label>
+<input type="file" id="imageUpload" name="imageUpload[]" accept="image/*" multiple>
     
         <div class="checkbox-section">
             <input type="checkbox" id="includeAuthorDetails" name="includeAuthorDetails">
