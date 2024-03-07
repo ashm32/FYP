@@ -16,7 +16,7 @@ body {
     --dark-brown: #301f15ad; /* Dark brown */
     --light-brown: #554436d0; /* Light brown */
     --gold: rgb(210, 193, 5); /* Gold */
-    --warm-brown: #5a3f06; /* Dark red */
+    --warm-brown: #5a3f06; /* warm brown */
     --error-red: #ff0000; /* Error red */
 }
 
@@ -87,12 +87,13 @@ select {
     margin-right: 20px;
 }
 
-/* Project List Styles */
-.project-list {
+/* Project Grid Index */
+.project-grid {
     margin: 20px;
     display: flex;
     flex-wrap: wrap; 
     justify-content: space-between;
+    width: auto;
 }
 
 .project {
@@ -385,4 +386,184 @@ input {
 
 #mainSubmissionForm button:hover {
     background-color:  var(--warm-brown); 
+}
+
+/* Lecturer Dashboard */
+.project-list {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    justify-content: center;
+}
+.project-list h2 {
+    color: white;
+}
+
+.project-table {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.project-row {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.project-cell {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    /* Set fixed size for the card */
+    width: 150px;
+    height: 200px;
+    position: relative;
+}
+
+.project-cell h3 {
+    margin-top: 0;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px; /* Add padding to separate buttons from content */
+}
+
+.button-container .button {
+    padding: 8px 16px;
+    background-color: var(--warm-brown);
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-container .button:hover {
+    background-color: var(--dark-brown);
+}
+
+.fa-solid {
+    color: white; /* Set the color of the icon to white */
+}
+
+
+/* Projects page */
+/* Projects container */
+.projectsContainer {
+    background-color: #ffffffb2; /* White background */
+    text-align: center; /* Center-align text */
+    margin: 30px auto; /* Center horizontally */
+    width: 50%; /* Set width */
+}
+
+
+/* Style for slideshow */
+.slideshow-container {
+    max-width: 50%; 
+    max-height: 400px; 
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+}
+
+.mySlides {
+    display: none;
+    width: 100%; 
+}
+
+/* Style for slideshow images */
+.mySlides img,
+.mySlides video {
+    width: 100%; 
+    height: auto; 
+    cursor: pointer; /* Show pointer cursor for videos */
+}
+
+/* Style for video container */
+.video-container {
+    max-width: 100%; 
+    margin: auto;
+}
+
+.video-container video {
+    width: 500px; 
+    height: 400px; 
+}
+
+/* Slideshow */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 16px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 50%;
+    background-color: var(--light-brown); 
+    z-index: 1; /* so buttons appear above imgs */
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: var(--dark-brown);
+}
+
+/* Dots for slideshow */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color:var(--light-brown);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active{
+    background-color: var(--gold);
+}
+.dot:hover {
+    background-color: var(--warm-brown);
+}
+
+.note {
+    width: calc(50% - 10px);
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .projectsContainer {
+        padding: 10px;
+    }
+    .slideshow-container {
+        max-width: 100%; 
+        max-height: 300px; 
+     }
+    .note {
+        width: 100%;
+        display: block;
+    }
 }
