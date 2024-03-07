@@ -1,108 +1,163 @@
 <?php
-echo "Script is executing.";
-
 // Include the database connection file
 include 'db_connection.php';
 
-// Retrieve form data
-$projectName = $_POST["projectName"];
-$projectSummary = $_POST["projectSummary"];
-$projectDetails = $_POST["projectDetails"];
-$projectField = $_POST["projectField"];
-$projectYear = $_POST["projectYear"];
+// Check if the database connection is successful
+if (!$connProject) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-$authorFirstName = isset($_POST["authorFirstName"]) ? $_POST["authorFirstName"] : "";
-$authorLastName = isset($_POST["authorLastName"]) ? $_POST["authorLastName"] : "";
-$authorEmail = isset($_POST["authorEmail"]) ? $_POST["authorEmail"] : "";
+// Check if project ID is provided in the URL
+if (isset($_GET['id'])) {
+    $project_id = $_GET['id'];
 
-// Debugging: Output received form data
-echo "Received form data:";
-var_dump($_POST);
+    // Retrieve project details from the database based on the provided project ID
+    $query = "SELECT * FROM projects WHERE id = $project_id";
+    $result = mysqli_query($connProject, $query);
 
-try {
-    // Check if video file is uploaded
-    if ($_FILES['videoUpload']['error'] == UPLOAD_ERR_OK) {
-        $videoTempName = $_FILES['videoUpload']['tmp_name'];
-        $videoName = $_FILES['videoUpload']['name'];
-        $videoPath = 'uploads/' . $videoName; // Define the path where the video will be stored on the server
+    // Check if project exists
+    if (mysqli_num_rows($result) == 1) {
+        $project = mysqli_fetch_assoc($result);
+?>
 
-        // Move the uploaded video file 
-        if (move_uploaded_file($videoTempName, $videoPath)) {
-            // File moved successfully
-            $videoPaths[] = $videoPath; // Store video path for later use
-        } else {
-            // File move failed, handle the error
-            echo 'Failed to move uploaded video file.';
-        }
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    // Check if image files are uploaded
-    $imagePaths = array();
-    if (!empty($_FILES['imageUpload'])) {
-        foreach ($_FILES['imageUpload']['tmp_name'] as $key => $imageTempName) {
-            if ($_FILES['imageUpload']['error'][$key] == UPLOAD_ERR_OK) {
-                $imageName = $_FILES['imageUpload']['name'][$key];
-                $imagePath = 'uploads/' . $imageName; // Defines the path where the image will be stored on the server
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title><?php echo $project['projectName']; ?></title>
+</head>
 
-                // Move the uploaded image file
-                if (move_uploaded_file($imageTempName, $imagePath)) {
-                    // File moved successfully
-                    $imagePaths[] = $imagePath; // Store image path for later use
-                } else {
-                    // File move failed, handle the error
-                    echo 'Failed to move uploaded image file: ' . $imageName;
-                }
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Aston University’s Hall of Fame</div>
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="projectsContainer">
+        <div class="section">
+            <h1>Title: <?php echo $project['projectName']; ?></h1>
+            <h2>Project Summary:</h2>
+            <p><?php echo $project['projectSummary']; ?></p>
+            <h2>Project Description:</h2>
+            <p><?php echo $project['projectDetails']; ?></p>
+        </div>
+        <div class="section">
+            <h2>Project Walkthrough :</h2>
+            <?php
+            // Split the file paths by comma to get an array of file paths
+            $videoPaths = explode(',', $project['videoUpload']);
+            foreach ($videoPaths as $videoPath) {
+            ?>
+                <div class="video-container">
+                    <video controls>
+                        <source src="<?php echo $videoPath; ?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            <?php
             }
-        }
-    }
+            ?>
+        </div>
+        <div class="section">
+            <h2>Project Walkthrough:</h2>
+            <div class="slideshow-container">
+                <?php
+                // Retrieve images for the current project
+                $imageQuery = "SELECT * FROM project_images WHERE project_id = $project_id";
+                $imageResult = mysqli_query($connProject, $imageQuery);
 
-    // Prepare SQL statement using the appropriate database connection
-    $query = "INSERT INTO projects (projectName, projectSummary, projectDetails, projectField, projectYear, videoUpload, authorFirstName, authorLastName, authorEmail) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $connProject->prepare($query);
-
-    if ($stmt) {
-        // Bind parameters to prepared statement
-        $stmt->bind_param("sssssssss", $projectName, $projectSummary, $projectDetails, $projectField, $projectYear, $videoPath, $authorFirstName, $authorLastName, $authorEmail);
-
-        // Execute the prepared statement
-        if ($stmt->execute()) {
-            // Get the ID of the inserted project
-            $projectId = $stmt->insert_id;
-
-            // Insert image paths into separate table
-            if (!empty($imagePaths)) {
-                $insertImageQuery = "INSERT INTO project_images (project_id, image_path) VALUES (?, ?)";
-                $stmtImage = $connProject->prepare($insertImageQuery);
-
-                if ($stmtImage) {
-                    foreach ($imagePaths as $imagePath) {
-                        $stmtImage->bind_param("is", $projectId, $imagePath);
-                        $stmtImage->execute();
+                // Check if there are images to display
+                if ($imageResult && mysqli_num_rows($imageResult) > 0) {
+                    $index = 0; // Initialize index for the slides
+                    while ($image = mysqli_fetch_assoc($imageResult)) {
+                ?>
+                        <div class="mySlides fade">
+                            <img src="<?php echo $image['image_path']; ?>" alt="Project Image">
+                        </div>
+                <?php
+                        $index++;
                     }
-                    $stmtImage->close();
                 } else {
-                    echo "Error: Failed to prepare image insertion statement.";
+                    echo "<p>No images uploaded for this project.</p>";
                 }
-            }
+                ?>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <br>
+            <div style="text-align:center">
+                <?php
+                // Add dots for each slide
+                for ($i = 0; $i < $index; $i++) {
+                ?>
+                    <span class="dot" onclick="currentSlide(<?php echo $i + 1; ?>)"></span>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
 
-            // Set session variable for success message
-            session_start();
-            $_SESSION['success_message'] = "Project submitted successfully";
-            // Redirect to the homepage
-            header("Location: index.php");
-            exit(); // Stop further execution
-        } else {
-            // If execution fails, output the MySQL error
-            echo "Error: " . mysqli_error($connProject);
+        <div class="section note">
+            <h3>Project Field:</h3>
+            <p><?php echo $project['projectField']; ?></p>
+            <h3>Year of Submission:</h3>
+            <p><?php echo $project['projectYear']; ?></p>
+        </div>
+        <?php if ($project['authorFirstName'] && $project['authorLastName'] && $project['authorEmail']) { ?>
+            <div class="section note">
+                <h2>Contact Details:</h2>
+                <h3>Project Author:</h3>
+                <p><?php echo $project['authorFirstName'] . ' ' . $project['authorLastName']; ?></p>
+                <h3>Email Address:</h3>
+                <p><?php echo $project['authorEmail']; ?></p>
+            </div>
+        <?php } ?>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
         }
 
-        // Close the statement
-        $stmt->close();
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+</body>
+
+</html>
+
+<?php
     } else {
-        throw new Exception("Failed to prepare the SQL statement.");
+        echo "Project not found.";
     }
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+} else {
+    echo "Invalid project ID.";
 }
 ?>
