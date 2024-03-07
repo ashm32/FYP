@@ -3,7 +3,6 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,6 @@ session_start();
     <link rel="stylesheet" href="style.css">
     <title>Your Website</title>
 </head>
-
 <body>
     <!-- Navbar -->
     <nav>
@@ -62,72 +60,14 @@ session_start();
             <option value="most-liked">Most Liked</option>
             <option value="recent">Recent</option>
         </select>
+
+        <button id="filter-button">Filter</button>
     </section>
 
     <!-- Project List Section -->
     <section class="project-list-container">
         <div class="project-list">
-            <div class="project">
-                <div class="project-info">
-                    <img src="img eg.png" alt="Project 1 Image">
-                    <h2>Project Title 1</h2>
-                    <p>Brief description of Project 1.</p>
-                </div>
-                <div class="project-actions">
-                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
-                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
-                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-info">
-                    <img src="img eg.png" alt="Project 2 Image">
-                    <h2>Project Title 2</h2>
-                    <p>Brief description of Project 2.</p>
-                </div>
-                <div class="project-actions">
-                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
-                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
-                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-info">
-                    <img src="img eg.png" alt="Project 3 Image">
-                    <h2>Project Title 3</h2>
-                    <p>Brief description of Project 3.</p>
-                </div>
-                <div class="project-actions">
-                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
-                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
-                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-info">
-                    <img src="img eg.png" alt="Project 4 Image">
-                    <h2>Project Title 4</h2>
-                    <p>Brief description of Project 4.</p>
-                </div>
-                <div class="project-actions">
-                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
-                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
-                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-info">
-                    <img src="img eg.png" alt="Project 5 Image">
-                    <h2>Project Title 5</h2>
-                    <p>Brief description of Project 5.</p>
-                </div>
-                <div class="project-actions">
-                    <button class="view-project"><i class="fa-regular fa-folder-open"></i></button>
-                    <button class="medal-icon"><i class="fa-solid fa-medal"></i></button>
-                    <button class="contact-icon"><i class="fa-solid fa-address-book"></i></button>
-                </div>
-            </div>
-            
+            <!-- Project items will be dynamically populated here -->
         </div>
     </section>
 
@@ -143,6 +83,37 @@ session_start();
         unset($_SESSION['success_message']);
     }
     ?>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to add project to index.php dynamically
+            function addToIndex(projectId) {
+                const projectList = document.querySelector('.project-list');
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Append the new project HTML to the project list
+                            projectList.insertAdjacentHTML('beforeend', xhr.responseText);
+                        } else {
+                            console.error('Error adding project to index:', xhr.status);
+                        }
+                    }
+                };
+                xhr.open('GET', `fetch_project.php?id=${projectId}`, true);
+                xhr.send();
+            }
 
+            // Event listener for add-to-index buttons
+            const addToIndexButtons = document.querySelectorAll('.add-to-index');
+            addToIndexButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-id');
+                    addToIndex(projectId);
+                    // Remove the project row from the lecturer dashboard
+                    this.closest('.project-row').remove();
+                });
+            });
+        });
+    </script>
+</body>
 </html>
