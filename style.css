@@ -90,10 +90,9 @@ select {
 /* Project Grid Index */
 .project-grid {
     margin: 20px;
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between;
-    width: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px; /* Gap between grid items */
 }
 
 .project {
@@ -101,13 +100,19 @@ select {
     border: 1px solid #423232;
     color: white;
     padding: 15px;
-    margin-bottom: 10px;
-    width: calc(20% - 20px); /* to fit 5 cards across */
+    /* Remove width calculation to fit 3 cards across */
     box-sizing: border-box;
     display: flex;
     font-family: 'Playfair Display';
     flex-direction: column;
     transition: transform 0.3s ease; 
+}
+
+/* Adjust button container */
+.project-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto; /* Align buttons to bottom */
 }
 
 .project:hover {
@@ -317,7 +322,6 @@ input {
 }
 
 /* Student Dashboard */
-/* Student Submission Section Styles */
 .student-submission {
     max-width: 600px;
     margin: 20px auto;
@@ -396,7 +400,8 @@ input {
     justify-content: center;
 }
 .project-list h2 {
-    color: white;
+    color: var(--gold);
+    text-align: center;
 }
 
 .project-table {
@@ -452,6 +457,41 @@ input {
 
 .fa-solid {
     color: white; /* Set the color of the icon to white */
+}
+
+/* Pagination Section Styles */
+.pagination-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px; /* Add padding from the bottom */
+}
+
+.pagination-section a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: var(--light-brown); /* White background */
+    color: #ffffff; /* White text */
+    text-align: center;
+    line-height: 40px; /* Center text vertically */
+    margin-left: 10px; /* Add spacing between arrows and current page */
+    text-decoration: none;
+    border: 1px solid #ffffff; /* White border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.pagination-section .current-page {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: var(--warm-brown); /* Gold background */
+    color: #ffffff; /* White text */
+    text-align: center;
+    line-height: 40px; /* Center text vertically */
+    margin-left: 10px; /* Add spacing between arrows and current page */
+    border: 1px solid var(--warm-brown); /* Gold border */
+    border-radius: 5px; /* Rounded corners */
 }
 
 
