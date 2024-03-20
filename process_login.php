@@ -1,13 +1,10 @@
 <?php
-// Include the database connection file
-include 'db_connection.php';
-
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Initialise error flag
-$errorFlag = false;
+// Include the database connection file
+include 'db_connection.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,64 +14,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if input matches lecturer credentials
     $lecturerUsername = "lecturer@example.com";  // lecturers have shared account
-    $lecturerPasswordHash = "lecturer_password"; 
-    // Debugging: Print out the lecturer's hashed password
-    echo "Stored Lecturer Password Hash: " . $lecturerPasswordHash;
+    $lecturerPassword = "adminpass"; 
+    $lecturerPasswordHash = password_hash($lecturerPassword, PASSWORD_DEFAULT);
 
+    // Debugging: Output the lecturer's hashed password
+    echo "Lecturer Password Hash: " . $lecturerPasswordHash;
+
+    // Check if the entered credentials match lecturer's credentials
     if ($email === $lecturerUsername && password_verify($password, $lecturerPasswordHash)) {
         // Redirect to lecturer dashboard
+        session_start();
+        $_SESSION['user_logged_in'] = true;
+        $_SESSION['user_role'] = 'lecturer';
         header('Location: lecturers_dash.php');
         exit();
     } else {
-        // Debugging: Print out the entered password and its hash
-        $enteredPasswordHash = password_hash($password, PASSWORD_DEFAULT);
-        echo "Entered Password: " . $password;
-        echo "Entered Password Hash: " . $enteredPasswordHash;
+        // Check if entered credentials match student's credentials
+        $connAuthentication = connectToDatabase("user_authentication");
+        $query = "SELECT * FROM users WHERE email = ?";
 
-        // Debugging: Print a message to indicate the comparison failed
-        echo "Password verification failed.";
-    }
+        try {
+            $stmt = $connAuthentication->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $user = $result->fetch_assoc();
 
-    // Checks if logged in as a regular user (student)
-    $connAuthentication = connectToDatabase("user_authentication");
-    $query = "SELECT * FROM users WHERE email = ?";
-
-    try {
-        $stmt = $connAuthentication->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
-
-            if ($user && password_verify($password, $user['password'])) {
-                // Set session variables
-                session_start();
-                $_SESSION['user_logged_in'] = true;
-                $_SESSION['user_role'] = 'student'; // student = default, change to 'lecturer' if applicable
-                // Redirect to appropriate dashboard
-                if ($email === $lecturerUsername) {
-                    $_SESSION['user_role'] = 'lecturer';
-                    header('Location: lecturers_dash.php');
+                if ($user && password_verify($password, $user['password'])) {
+                    // Set session variables for student
+                    session_start();
+                    $_SESSION['user_logged_in'] = true;
+                    $_SESSION['user_role'] = 'student';
+                    // Redirect to student dashboard
+                    header('Location: student_dash.php');
                     exit();
                 } else {
-                    header('Location: student_dash.php');
+                    // Invalid input, display error message on the webpage and clear the form
+                    header('Location: login.html?error=invalid_credentials');
                     exit();
                 }
             } else {
-                // Invalid input, display error message on the webpage and clear the form
-                header('Location: login.html?error=invalid_credentials');
-                exit();
+                // Handle failed prepared statement and redirect
+                http_response_code(500);  // Internal Server Error
+                echo 'Database error. Please try again later.';
             }
-        } else {
-            // Handle failed prepared statement and redirect
+        } catch (Exception $e) {
+            // Handle exceptions, log the error, or display an appropriate message and redirect
             http_response_code(500);  // Internal Server Error
-            echo 'Database error. Please try again later.';
+            echo 'An unexpected error occurred. Please try again later.';
         }
-    } catch (Exception $e) {
-        // Handle exceptions, log the error, or display an appropriate message and redirect
-        http_response_code(500);  // Internal Server Error
-        echo 'An unexpected error occurred. Please try again later.';
     }
 } else {
     // Invalid request
