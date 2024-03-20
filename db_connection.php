@@ -15,9 +15,9 @@ function connectToDatabase($databaseName) {
 
     $conn->set_charset("utf8");
 
-    // Temporary logging
-    error_log("Connection successful to database: $databaseName");
-    echo "Connection successful to database: $databaseName"; // Add this line for debugging
+    // // Temporary logging
+    // error_log("Connection successful to database: $databaseName");
+    // echo "Connection successful to database: $databaseName"; 
 
     return $conn;
 }
@@ -28,7 +28,6 @@ $connProject = connectToDatabase("project_submission");
 // Connect to user_authentication database
 $connAuthentication = connectToDatabase("user_authentication");
 
-session_start();
+// session_start();
 
 ?>
-
