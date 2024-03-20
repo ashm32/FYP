@@ -36,7 +36,35 @@
 <section class="hero">
    <h1>Submit your work and engage with each other's content!</h1>
 </section>
+<!-- Filter Section -->
+<section class="filter">
+            <label for="field">Filter by Field:</label>
+            <select id="field">
+                <option value="all">All Fields</option>
+                <option value="field1">Computer Science</option>
+                <option value="field2">Engineering</option>
+                <option value="field2">Business</option>
+                <option value="field2">Cyber Security</option>
+                <option value="field2">IT</option>
+            </select>
 
+            <label for="year">Filter by Year:</label>
+            <select id="year">
+                <option value="all">All Years</option>
+                <option value="2024">2022</option>
+                <option value="2023">2022</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+                <option value="most-liked">Most Liked</option>
+                <option value="recent">Recent</option>
+            </select>
+
+            <button id="filter-button">Filter</button>
+        </section>
 <!-- Project List Section -->
 <section class="project-list-container">
    <div class="project-grid">
