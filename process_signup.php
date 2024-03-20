@@ -1,9 +1,10 @@
 <?php
+// Include the database connection file
+include 'db_connection.php';
+
+// Error reporting for development purposes
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Include the database connection file
-include '/Applications/MAMP/htdocs/db_connection.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,12 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hash the password
 
-    // Insert user data into the 'users' table
+    // add user data into the 'users' table
     $query = "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
     
     // try-catch block to handle any potential exceptions
     try {
-        $connAuthentication = connectToDatabase("user_authentication"); e
+        // Connect to the database
+        $connAuthentication = connectToDatabase("user_authentication"); 
         $stmt = $connAuthentication->prepare($query); 
 
         if ($stmt) {
@@ -45,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 );
             }
 
-            // Close the database 
+            // Close the database connection
             $stmt->close();
         } else {
             throw new Exception("Failed to prepare the SQL statement.");
@@ -57,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'message' => 'An error occurred. Please try again later.',
         );
     }
-
 
     // Send JSON response
     header('Content-Type: application/json');
@@ -72,9 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function determineRedirectUrl($userId) {
     $isStudent = true; 
     if ($isStudent) {
-        return 'student_dash.html';
+        return 'student_dash.php';
     } else {
-        return 'lecturers_dash.html';
+        return 'lecturers_dash.php';
     }
 }
 ?>
