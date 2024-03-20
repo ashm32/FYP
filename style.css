@@ -61,7 +61,6 @@ a:hover {
 
 /* Hero Section Styles */
 .hero {
-    /* background-color: #dedede7a; */
     padding: 10px;
     margin: 20px auto;
     text-align: center;
@@ -91,7 +90,7 @@ select {
 .project-grid {
     margin: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px; /* Gap between grid items */
 }
 
@@ -100,7 +99,6 @@ select {
     border: 1px solid #423232;
     color: white;
     padding: 15px;
-    /* Remove width calculation to fit 3 cards across */
     box-sizing: border-box;
     display: flex;
     font-family: 'Playfair Display';
@@ -112,18 +110,18 @@ select {
 .project-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: auto; /* Align buttons to bottom */
+    margin-top: auto; 
 }
 
 .project:hover {
-    transform: scale(1.05); /* increase card size */
+    transform: scale(1.05); /* increas card size */
     background-color: #634f15a5;
     border: 1px solid #4c3d14;
 }
 
 
 .project img {
-    width: 100%; /* Make the image fill the container */
+    width: 100%; 
     height: auto; 
 }
 
@@ -148,7 +146,7 @@ button.view-project {
     border: none;
     cursor: pointer;
     margin: 10px; 
-    border-radius: 50%; /* To make it round */
+    border-radius: 50%; 
 }
 
 button.medal-icon:hover,
@@ -438,7 +436,7 @@ input {
     width: 70%;
     display: flex;
     justify-content: space-between;
-    padding-top: 10px; /* Add padding to separate buttons from content */
+    padding-top: 10px; 
 }
 
 .button-container .button {
@@ -456,7 +454,7 @@ input {
 }
 
 .fa-solid {
-    color: white; /* Set the color of the icon to white */
+    color: white; 
 }
 
 /* Pagination Section Styles */
@@ -464,44 +462,44 @@ input {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px; /* Add padding from the bottom */
+    padding: 20px; 
 }
 
 .pagination-section a {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background-color: var(--light-brown); /* White background */
-    color: #ffffff; /* White text */
+    background-color: var(--light-brown); 
+    color: #ffffff; 
     text-align: center;
-    line-height: 40px; /* Center text vertically */
-    margin-left: 10px; /* Add spacing between arrows and current page */
+    line-height: 40px; 
+    margin-left: 10px; 
     text-decoration: none;
-    border: 1px solid #ffffff; /* White border */
-    border-radius: 5px; /* Rounded corners */
+    border: 1px solid white; 
+    border-radius: 5px; 
 }
 
 .pagination-section .current-page {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background-color: var(--warm-brown); /* Gold background */
-    color: #ffffff; /* White text */
+    background-color: var(--warm-brown); 
+    color: white; 
     text-align: center;
-    line-height: 40px; /* Center text vertically */
+    line-height: 40px; 
     margin-left: 10px; /* Add spacing between arrows and current page */
-    border: 1px solid var(--warm-brown); /* Gold border */
-    border-radius: 5px; /* Rounded corners */
+    border: 1px solid var(--warm-brown); 
+    border-radius: 5px;
 }
 
 
 /* Projects page */
 /* Projects container */
 .projectsContainer {
-    background-color: #ffffffb2; /* White background */
-    text-align: center; /* Center-align text */
-    margin: 30px auto; /* Center horizontally */
-    width: 50%; /* Set width */
+    background-color: white; 
+    text-align: center; 
+    margin: 30px auto;
+    width: 50%; 
 }
 
 
@@ -580,9 +578,6 @@ input {
     transition: background-color 0.6s ease;
 }
 
-.active{
-    background-color: var(--gold);
-}
 .dot:hover {
     background-color: var(--warm-brown);
 }
