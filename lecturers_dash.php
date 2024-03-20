@@ -9,7 +9,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Add the FontAwesome CSS link below -->
+    <!-- FontAwesome CSS link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Lecturer Dashboard</title>
 </head>
@@ -31,17 +31,20 @@ session_start();
             <label for="field">Filter by Field:</label>
             <select id="field">
                 <option value="all">All Fields</option>
-                <option value="field1">Field 1</option>
-                <option value="field2">Field 2</option>
-                <!-- Add more field options as needed -->
+                <option value="field1">Computer Science</option>
+                <option value="field2">Engineering</option>
+                <option value="field2">Business</option>
+                <option value="field2">Cyber Security</option>
+                <option value="field2">IT</option>
             </select>
 
             <label for="year">Filter by Year:</label>
             <select id="year">
                 <option value="all">All Years</option>
+                <option value="2024">2022</option>
+                <option value="2023">2022</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
-                <!-- Add more year options as needed -->
             </select>
 
             <label for="sort">Sort by:</label>
