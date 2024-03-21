@@ -23,7 +23,7 @@
 
     <!-- Main Submission Form -->
     <!-- enctype for file inputs, included name attributes -->
-    <form id="mainSubmissionForm" action="process_submission.php" method="POST" enctype="multipart/form-data">
+    <form id="mainSubmissionForm" action="process_submission.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm();">
     
         <label for="projectName">Project Name:</label>
         <input type="text" id="projectName" name="projectName" required placeholder="Enter the project name">
@@ -37,15 +37,23 @@
         <label for="projectField">Project Field:</label>
         <select id="projectField" name="projectField" required>
             <option value="" disabled selected>Select Project Field</option>
-            <option value="field1">Field 1</option>
-            <option value="field2">Field 2</option>
+               <option value="all">All Fields</option>
+               <option value="field1">Computer Science</option>
+                <option value="field2">Engineering</option>
+                <option value="field33">Business</option>
+                <option value="field4">Cyber Security</option>
+                <option value="field5">IT</option>
+                <option value="field5">Accounting</option>
         </select>
         
         <label for="projectYear">Project Year:</label>
         <select id="projectYear" name="projectYear" required>
             <option value="" disabled selected>Select Project Year</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
+            <option value="all">All Years</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
         </select>
     
         <!-- File input for video -->
@@ -53,7 +61,7 @@
         <input type="file" id="videoUpload" name="videoUpload" accept="video/*">
     
 <!-- File input for image -->
-<label for="imageUpload">Image Upload (Max 5 images):</label>
+<label for="imageUpload">Image Upload (Drag Images To Add Multiple):</label>
 <input type="file" id="imageUpload" name="imageUpload[]" accept="image/*" multiple>
     
         <div class="checkbox-section">
@@ -80,6 +88,41 @@
 
     <script defer src="script.js"></script>
     <script defer src="ajaxScript.js"></script>
-    
+    <script>
+function validateForm() {
+    var projectName = document.getElementById("projectName").value.trim();
+    var projectSummary = document.getElementById("projectSummary").value.trim();
+    var projectDetails = document.getElementById("projectDetails").value.trim();
+    var projectField = document.getElementById("projectField").value;
+    var projectYear = document.getElementById("projectYear").value;
+    var videoUpload = document.getElementById("videoUpload").value.trim();
+    var imageUpload = document.getElementById("imageUpload").value.trim();
+
+    // Check if any of the required fields are empty or contain only spaces
+    if (projectName === "" || projectSummary === "" || projectDetails === "" ||
+        projectField === "" || projectYear === "" || videoUpload === "" || imageUpload === "") {
+        alert("Please fill in all required fields.");
+        return false; // Prevent form submission
+    }
+
+    // Check if including author details is selected
+    var includeAuthorDetails = document.getElementById("includeAuthorDetails").checked;
+    if (includeAuthorDetails) {
+        var authorFirstName = document.getElementById("authorFirstName").value.trim();
+        var authorLastName = document.getElementById("authorLastName").value.trim();
+        var authorEmail = document.getElementById("authorEmail").value.trim();
+
+        // Check if any of the author details fields are empty or contain only spaces
+        if (authorFirstName === "" || authorLastName === "" || authorEmail === "") {
+            alert("Please fill in all author details.");
+            return false; // Prevent form submission
+        }
+    }
+
+    return true; // Allow form submission
+}
+</script>
+
+
 </body>
 </html>
