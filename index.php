@@ -34,7 +34,7 @@
 
 <!-- Hero Section -->
 <section class="hero">
-   <h1>Submit your work and engage with each other's content!</h1>
+   <h1>Explore Aston's top projects</h1>
 </section>
 <!-- Filter Section -->
 <section class="filter">
