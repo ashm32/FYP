@@ -17,7 +17,7 @@ function connectToDatabase($databaseName) {
 
     // // Temporary logging
     // error_log("Connection successful to database: $databaseName");
-    // echo "Connection successful to database: $databaseName"; 
+    // echo "Connection successful to database: $databaseName"; // Added this line for debugging
 
     return $conn;
 }
