@@ -78,7 +78,7 @@
        $offset = ($page - 1) * $results_per_page;
 
        // Get projects from the database for the current page
-       $query = "SELECT projects.id, projects.projectName, projects.projectSummary, projects.authorEmail, project_images.image_path FROM projects LEFT JOIN project_images ON projects.id = project_images.project_id WHERE projects.inHallOfFame = 1 LIMIT $results_per_page OFFSET $offset";
+       $query = "SELECT projects.id, projects.projectName, projects.projectSummary, projects.authorEmail, project_images.image_path, projects.score FROM projects LEFT JOIN project_images ON projects.id = project_images.project_id WHERE projects.inHallOfFame = 1 LIMIT $results_per_page OFFSET $offset";
        $result = mysqli_query($connProject, $query);
 
        // Check if there are projects to display
@@ -87,7 +87,7 @@
                echo '<div class="project">';
                echo '<div class="project-info">';
                
-               // SHow project image
+               // Show project image
                if (!empty($row['image_path'])) {
                    echo '<img src="' . $row['image_path'] . '" alt="' . $row['projectName'] . ' Image">';
                } else {
@@ -100,7 +100,8 @@
                echo '<div class="project-actions">';
                // Link "View Project" button to the project details page
                echo '<a href="projects.php?id=' . $row['id'] . '"><button class="view-project"><i class="fa-regular fa-folder-open"></i></button></a>';
-               echo '<button class="medal-icon"><i class="fa-solid fa-medal"></i></button>';
+               // Show medal button and score
+               echo '<button class="medal-icon" data-project-id="' . $row['id'] . '"><i class="fa-solid fa-medal"></i> <span class="score">' . $row['score'] . '</span></button>';
                // Add the contact icon button with preloaded mail to
                if (!empty($row['authorEmail'])) {
                    echo '<a href="mailto:' . $row['authorEmail'] . '?subject=Regarding%20Project%20' . $row['id'] . '"><button class="contact-icon"><i class="fa-solid fa-address-book"></i></button></a>';
@@ -160,5 +161,37 @@
 </section>
 
 <script src="https://kit.fontawesome.com/188d621110.js" crossorigin="anonymous"></script>
+<script>
+    // Add event listener to the medal button
+    document.querySelectorAll('.medal-icon').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var projectId = this.getAttribute('data-project-id');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'upvote.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            // Update the score in the UI
+                            var scoreSpan = button.querySelector('.score');
+                            scoreSpan.textContent = response.score;
+                            // Disable the button to prevent multiple upvotes
+                            button.disabled = true;
+                        } else {
+                            // Handle error
+                            console.error('Failed to upvote: ' + response.message);
+                        }
+                    } else {
+                        // Handle error
+                        console.error('Failed to upvote: ' + xhr.statusText);
+                    }
+                }
+            };
+            xhr.send('projectId=' + projectId);
+        });
+    });
+</script>
 </body>
 </html>
