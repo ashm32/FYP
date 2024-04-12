@@ -16,16 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $connAdmins = connectToDatabase("user_authentication");
 
     // Prepare and execute query to fetch admin with provided email and password
-    $query = "SELECT * FROM admins WHERE email = ? AND password_hash = ?";
+    $query = "SELECT * FROM admins WHERE email = ?";
     $stmt = $connAdmins->prepare($query);
 
     if ($stmt === false) {
-        // Failed to prepare the statement, handle error
         die('Failed to prepare the statement: ' . $connAdmins->error);
     }
 
     // Bind parameters
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("s", $email);
 
     // Execute the statement
     $stmt->execute();
