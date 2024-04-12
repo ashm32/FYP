@@ -2,30 +2,54 @@
 // Database connection
 include 'db_connection.php';
 
-// Define the limit for SQL based on the current page
-$results_per_page = 9;
+// Define the limit for SQL based on the current page and projects per page
+$projects_per_page_options = array(9, 15, 24);
+$projects_per_page = isset($_GET['per_page']) && in_array($_GET['per_page'], $projects_per_page_options) ? $_GET['per_page'] : $projects_per_page_options[0];
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($page - 1) * $results_per_page;
+$offset = ($page - 1) * $projects_per_page;
 
-// Get total number of projects
-$total_query = "SELECT COUNT(DISTINCT projects.id) AS total FROM projects LEFT JOIN project_images ON projects.id = project_images.project_id WHERE projects.inHallOfFame = 1";
+// Define filter parameters
+$field = isset($_GET['field']) ? $_GET['field'] : 'all';
+$year = isset($_GET['year']) ? $_GET['year'] : 'all';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'recent';
+
+// Build the WHERE clause based on filter parameters
+$where_clause = "WHERE projects.inHallOfFame = 1";
+if ($field !== 'all') {
+    $where_clause .= " AND field = '$field'";
+}
+if ($year !== 'all') {
+    // Make sure the year format matches what's stored in the database
+    $where_clause .= " AND projectYear = '$year'";
+}
+
+// Get total number of projects after applying filters
+$total_query = "SELECT COUNT(DISTINCT projects.id) AS total FROM projects LEFT JOIN project_images ON projects.id = project_images.project_id $where_clause";
 $total_result = mysqli_query($connProject, $total_query);
 $total_row = mysqli_fetch_assoc($total_result);
 $total_projects = $total_row['total'];
 
-// Calculate total pages
-$total_pages = ceil($total_projects / $results_per_page);
+// Calculate total pages based on the total number of filtered projects and results per page
+$total_pages = ceil($total_projects / $projects_per_page);
 
-// Get projects for the current page
+// Get projects for the current page with applied filters and sorting
 $query = "SELECT DISTINCT projects.id, projects.projectName, projects.projectSummary, projects.authorEmail, project_images.image_path, projects.score 
           FROM projects 
           LEFT JOIN project_images ON projects.id = project_images.project_id 
-          WHERE projects.inHallOfFame = 1 
-          ORDER BY projects.id DESC
-          LIMIT $results_per_page OFFSET $offset";
+          $where_clause 
+          ORDER BY ";
+
+// Determine the sorting order based on the selected option
+if ($sort === 'most-liked') {
+    $query .= "projects.score DESC";
+} else {
+    // Default to sorting by most recent (greatest ID to lowest)
+    $query .= "projects.id DESC";
+}
+
+$query .= " LIMIT $projects_per_page OFFSET $offset";
 
 $result = mysqli_query($connProject, $query);
-
 ?>
 
 <!DOCTYPE html>
@@ -61,40 +85,50 @@ $result = mysqli_query($connProject, $query);
     </ul>        
 </nav>
 
-
 <!-- Hero Section -->
 <section class="hero">
    <h1>Explore Aston's top projects</h1>
 </section>
+
 <!-- Filter Section -->
 <section class="filter">
-            <label for="field">Filter by Field:</label>
-            <select id="field">
-                <option value="all">All Fields</option>
-                <option value="field1">Computer Science</option>
-                <option value="field2">Engineering</option>
-                <option value="field2">Business</option>
-                <option value="field2">Cyber Security</option>
-                <option value="field2">IT</option>
-            </select>
+    <form id="filter-form">
+        <label for="field">Filter by Field:</label>
+        <select id="field" name="field">
+            <option value="all">All Fields</option>
+            <option value="field1">Computer Science</option>
+            <option value="field2">Engineering</option>
+            <option value="field2">Business</option>
+            <option value="field2">Cyber Security</option>
+            <option value="field2">IT</option>
+        </select>
 
-            <label for="year">Filter by Year:</label>
-            <select id="year">
-                <option value="all">All Years</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-            </select>
+        <label for="year">Filter by Year:</label>
+        <select id="year" name="year">
+            <option value="all">All Years</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+        </select>
 
-            <label for="sort">Sort by:</label>
-            <select id="sort">
-                <option value="most-liked">Most Liked</option>
-                <option value="recent">Recent</option>
-            </select>
+        <label for="sort">Sort by:</label>
+        <select id="sort" name="sort">
+            <option value="most-liked">Most Liked</option>
+            <option value="recent">Recent</option>
+        </select>
 
-            <button id="filter-button">Filter</button>
-        </section>
+        <label for="per_page">Projects per Page:</label>
+        <select id="per_page" name="per_page">
+            <?php foreach ($projects_per_page_options as $option) { ?>
+                <option value="<?php echo $option; ?>" <?php if ($projects_per_page == $option) echo 'selected'; ?>><?php echo $option; ?></option>
+            <?php } ?>
+        </select>
+
+        <button type="submit" id="filter-button">Filter</button>
+    </form>
+</section>
+
 <!-- Project List Section -->
 <section class="project-list-container">
    <div class="project-grid">
@@ -142,7 +176,7 @@ $result = mysqli_query($connProject, $query);
    <?php
    // Display previous arrow if not on the first page
    if ($page > 1) {
-       echo '<a href="index.php?page='.($page - 1).'">&lt;</a>';
+       echo '<a href="index.php?page='.($page - 1).'&per_page='.$projects_per_page.'">&lt;</a>';
    }
 
    // Display current page number
@@ -150,7 +184,7 @@ $result = mysqli_query($connProject, $query);
 
    // Display next arrow if not on the last page
    if ($page < $total_pages) {
-       echo '<a href="index.php?page='.($page + 1).'">&gt;</a>';
+       echo '<a href="index.php?page='.($page + 1).'&per_page='.$projects_per_page.'">&gt;</a>';
    }
    ?>
 </section>
@@ -158,6 +192,14 @@ $result = mysqli_query($connProject, $query);
 
 <script src="https://kit.fontawesome.com/188d621110.js" crossorigin="anonymous"></script>
 <script>
+    // Add event listener to the filter form submission
+    document.getElementById('filter-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var formData = new FormData(this); // Get form data
+        var queryString = new URLSearchParams(formData).toString(); // Convert form data to query string
+        window.location.href = 'index.php?' + queryString; // Redirect to index.php with filter parameters
+    });
+
     // Add event listener to the medal button
     document.querySelectorAll('.medal-icon').forEach(function(button) {
         button.addEventListener('click', function() {
@@ -188,58 +230,6 @@ $result = mysqli_query($connProject, $query);
             xhr.send('projectId=' + projectId);
         });
     });
-
-    // Add event listener to the filter button
-    document.getElementById('filter-button').addEventListener('click', function() {
-        var field = document.getElementById('field').value;
-        var year = document.getElementById('year').value;
-        var sort = document.getElementById('sort').value;
-
-        // Check if the filter values have changed
-        if (field !== sessionStorage.getItem('filterField') || year !== sessionStorage.getItem('filterYear') || sort !== sessionStorage.getItem('filterSort')) {
-            // Store filter values in sessionStorage
-            sessionStorage.setItem('filterField', field);
-            sessionStorage.setItem('filterYear', year);
-            sessionStorage.setItem('filterSort', sort);
-        }
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'filter.php?field=' + field + '&year=' + year + '&sort=' + sort, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Update project list with filtered results
-                    document.querySelector('.project-grid').innerHTML = xhr.responseText;
-                } else {
-                    // Handle error
-                    console.error('Failed to fetch filtered projects: ' + xhr.statusText);
-                }
-            }
-        };
-        xhr.send();
-    });
-
-    // Apply stored filter values on page load
-    window.onload = function() {
-        var storedField = sessionStorage.getItem('filterField');
-        var storedYear = sessionStorage.getItem('filterYear');
-        var storedSort = sessionStorage.getItem('filterSort');
-
-        if (storedField !== null) {
-            document.getElementById('field').value = storedField;
-        }
-
-        if (storedYear !== null) {
-            document.getElementById('year').value = storedYear;
-        }
-
-        if (storedSort !== null) {
-            document.getElementById('sort').value = storedSort;
-        }
-
-        // Trigger filter button click to fetch filtered projects
-        document.getElementById('filter-button').click();
-    };
 </script>
 </body>
 </html>
