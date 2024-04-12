@@ -19,9 +19,9 @@
         session_start();
         if (isset($_SESSION['user_logged_in'])) {
             if ($_SESSION['user_role'] == 'student') {
-                echo '<li><a href="student_dash.php">Student Dashboard</a></li>';
-            } elseif ($_SESSION['user_role'] == 'lecturer') {
-                echo '<li><a href="lecturers_dash.php">Lecturer Dashboard</a></li>';
+                echo '<li><a href="student_dash.php">My Dashboard</a></li>';
+            } elseif ($_SESSION['user_role'] == 'admin') {
+                echo '<li><a href="lecturers_dash.php">My Dashboard</a></li>';
             }
             echo '<li><a href="logout.php">Logout</a></li>';
         } else {
