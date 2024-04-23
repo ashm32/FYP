@@ -12,12 +12,20 @@ $offset = ($page - 1) * $projects_per_page;
 $field = isset($_GET['field']) ? $_GET['field'] : 'all';
 $year = isset($_GET['year']) ? $_GET['year'] : 'all';
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'recent';
+$openToWork = isset($_GET['openToWork']) ? 1 : 0; // Check if "Open to Work" filter is ticked
 
 // Build the WHERE clause based on filter parameters
-$where_clause = "WHERE projects.inHallOfFame = 1";
-if ($field !== 'all') {
-    $where_clause .= " AND field = '$field'";
+$where_clause = "WHERE projects.inHallOfFame = 1"; 
+
+// Add condition for "Open to Work" filter
+if ($openToWork == 1) {
+    $where_clause .= " AND open_to_work = 1";
 }
+
+if ($field !== 'all') {
+    $where_clause .= " AND projectField = '$field'";
+}
+
 if ($year !== 'all') {
     // Make sure the year format matches what's stored in the database
     $where_clause .= " AND projectYear = '$year'";
@@ -32,11 +40,12 @@ $total_projects = $total_row['total'];
 // Calculate total pages based on the total number of filtered projects and results per page
 $total_pages = ceil($total_projects / $projects_per_page);
 
-// Get projects for the current page with applied filters and sorting
-$query = "SELECT DISTINCT projects.id, projects.projectName, projects.projectSummary, projects.authorEmail, project_images.image_path, projects.score 
-          FROM projects 
+$query = "SELECT DISTINCT projects.id, projects.projectName, projects.projectSummary, projects.authorEmail, 
+          MAX(project_images.image_path) AS image_path, projects.score 
+          FROM projects
           LEFT JOIN project_images ON projects.id = project_images.project_id 
-          $where_clause 
+          $where_clause
+          GROUP BY projects.id
           ORDER BY ";
 
 // Determine the sorting order based on the selected option
@@ -49,7 +58,11 @@ if ($sort === 'most-liked') {
 
 $query .= " LIMIT $projects_per_page OFFSET $offset";
 
+// Output the generated SQL query for debugging (comment out in production)
+// echo "Generated SQL Query: " . $query;
+
 $result = mysqli_query($connProject, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -63,8 +76,7 @@ $result = mysqli_query($connProject, $query);
    <title>Your Website</title>
 </head>
 <body>
-  <!-- Navbar -->
-<nav>
+  <nav>
     <div class="logo">Aston University’s Hall of Fame</div>
     <ul>
     <ul>
@@ -85,23 +97,25 @@ $result = mysqli_query($connProject, $query);
     </ul>        
 </nav>
 
-<!-- Hero Section -->
 <section class="hero">
    <h1>Explore Aston's top projects</h1>
 </section>
 
-<!-- Filter Section -->
 <section class="filter">
     <form id="filter-form">
         <label for="field">Filter by Field:</label>
         <select id="field" name="field">
-            <option value="all">All Fields</option>
-            <option value="field1">Computer Science</option>
-            <option value="field2">Engineering</option>
-            <option value="field2">Business</option>
-            <option value="field2">Cyber Security</option>
-            <option value="field2">IT</option>
+        <option value="all">All Fields</option>
+        <option value="" disabled selected>Select Project Field</option>
+            <option value="AI">Artifical Intelligence</option>
+            <option value="CS">Cyber Security</option>
+            <option value="HCI">Human Computing Interactions</option>
+            <option value="ML">Machine Learning</option>
+            <option value="SE">Software Engineering</option>
+            <option value="UCD">User Centered Design</option>
+            <option value="WD">Web Development</option>
         </select>
+        
 
         <label for="year">Filter by Year:</label>
         <select id="year" name="year">
@@ -111,7 +125,10 @@ $result = mysqli_query($connProject, $query);
             <option value="2022">2022</option>
             <option value="2021">2021</option>
         </select>
-
+        <label>
+    
+        <input type="checkbox" id="openToWork" name="openToWork"> Open to Work
+        
         <label for="sort">Sort by:</label>
         <select id="sort" name="sort">
             <option value="most-liked">Most Liked</option>
@@ -129,7 +146,6 @@ $result = mysqli_query($connProject, $query);
     </form>
 </section>
 
-<!-- Project List Section -->
 <section class="project-list-container">
    <div class="project-grid">
        <?php
@@ -152,84 +168,83 @@ $result = mysqli_query($connProject, $query);
                echo '<div class="project-actions">';
                // Link "View Project" button to the project details page
                echo '<a href="projects.php?id=' . $row['id'] . '"><button class="view-project"><i class="fa-regular fa-folder-open"></i></button></a>';
-               // Show medal button and score
-               echo '<button class="medal-icon" data-project-id="' . $row['id'] . '"><i class="fa-solid fa-medal"></i> <span class="score">' . $row['score'] . '</span></button>';
+               // Show like button and score
+               echo '<button class="heart-icon" data-project-id="' . $row['id'] . '"><i class="fa-solid fa-heart"></i> <span class="score">' . $row['score'] . '</span></button>';
                // Add the contact icon button with preloaded mail to
                if (!empty($row['authorEmail'])) {
-                   echo '<a href="mailto:' . $row['authorEmail'] . '?subject=Regarding%20Project%20' . $row['id'] . '"><button class="contact-icon"><i class="fa-solid fa-address-book"></i></button></a>';
-               } else {
-                   echo '<button class="contact-icon" disabled><i class="fa-solid fa-address-book"></i></button>';
-               }
-               echo '</div>';
-               echo '</div>';
-           }
-       } else {
-           // No projects found
-           echo "<p>No projects found.</p>";
-       }
-       ?>
-   </div>
+                echo '<a href="mailto:' . $row['authorEmail'] . '?subject=Regarding%20Project%20' . $row['projectName'] . '"><button class="contact-icon"><i class="fa-solid fa-address-book"></i></button></a>';
+            } else {
+                echo '<button class="contact-icon" disabled><i class="fa-solid fa-address-book"></i></button>';
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+    } else {
+        // No projects found
+        echo "<p>No projects found.</p>";
+    }
+    ?>
+</div>
 </section>
 
-<!-- Pagination Section -->
 <section class="pagination-section">
-   <?php
-   // Display previous arrow if not on the first page
-   if ($page > 1) {
-       echo '<a href="index.php?page='.($page - 1).'&per_page='.$projects_per_page.'">&lt;</a>';
-   }
+<?php
+// Display previous arrow if not on the first page
+if ($page > 1) {
+    echo '<a href="index.php?page='.($page - 1).'&per_page='.$projects_per_page.'">&lt;</a>';
+}
 
-   // Display current page number
-   echo '<span class="current-page">' . $page . '</span>';
+// Display current page number
+echo '<span class="current-page">' . $page . '</span>';
 
-   // Display next arrow if not on the last page
-   if ($page < $total_pages) {
-       echo '<a href="index.php?page='.($page + 1).'&per_page='.$projects_per_page.'">&gt;</a>';
-   }
-   ?>
+// Display next arrow if not on the last page
+if ($page < $total_pages) {
+    echo '<a href="index.php?page='.($page + 1).'&per_page='.$projects_per_page.'">&gt;</a>';
+}
+?>
 </section>
 
 
 <script src="https://kit.fontawesome.com/188d621110.js" crossorigin="anonymous"></script>
 <script>
-    // Add event listener to the filter form submission
-    document.getElementById('filter-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
-        var formData = new FormData(this); // Get form data
-        var queryString = new URLSearchParams(formData).toString(); // Convert form data to query string
-        window.location.href = 'index.php?' + queryString; // Redirect to index.php with filter parameters
-    });
+ // Add event listener to the filter form submission
+ document.getElementById('filter-form').addEventListener('submit', function(event) {
+     event.preventDefault(); // Prevent form submission
+     var formData = new FormData(this); // Get form data
+     var queryString = new URLSearchParams(formData).toString(); // Convert form data to query string
+     window.location.href = 'index.php?' + queryString; // Redirect to index.php with filter parameters
+ });
 
-    // Add event listener to the medal button
-    document.querySelectorAll('.medal-icon').forEach(function(button) {
-        button.addEventListener('click', function() {
-            var projectId = this.getAttribute('data-project-id');
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'upvote.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        if (response.success) {
-                            // Update the score in the UI
-                            var scoreSpan = button.querySelector('.score');
-                            scoreSpan.textContent = response.score;
-                            // Disable the button to prevent multiple upvotes
-                            button.disabled = true;
-                        } else {
-                            // Handle error
-                            console.error('Failed to upvote: ' + response.message);
-                        }
-                    } else {
-                        // Handle error
-                        console.error('Failed to upvote: ' + xhr.statusText);
-                    }
-                }
-            };
-            xhr.send('projectId=' + projectId);
-        });
-    });
+ // Add event listener to the heart button
+ document.querySelectorAll('.heart-icon').forEach(function(button) {
+     button.addEventListener('click', function() {
+         var projectId = this.getAttribute('data-project-id');
+         var xhr = new XMLHttpRequest();
+         xhr.open('POST', 'upvote.php', true);
+         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+         xhr.onreadystatechange = function() {
+             if (xhr.readyState === XMLHttpRequest.DONE) {
+                 if (xhr.status === 200) {
+                     var response = JSON.parse(xhr.responseText);
+                     if (response.success) {
+                         // Update the score in the UI
+                         var scoreSpan = button.querySelector('.score');
+                         scoreSpan.textContent = response.score;
+                         // Disable the button to prevent multiple upvotes
+                         button.disabled = true;
+                     } else {
+                         // Handle error
+                         console.error('Failed to upvote: ' + response.message);
+                     }
+                 } else {
+                     // Handle error
+                     console.error('Failed to upvote: ' + xhr.statusText);
+                 }
+             }
+         };
+         xhr.send('projectId=' + projectId);
+     });
+ });
 </script>
 </body>
 </html>
