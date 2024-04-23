@@ -37,13 +37,13 @@
         <label for="projectField">Project Field:</label>
         <select id="projectField" name="projectField" required>
             <option value="" disabled selected>Select Project Field</option>
-               <option value="all">All Fields</option>
-               <option value="field1">Computer Science</option>
-                <option value="field2">Engineering</option>
-                <option value="field33">Business</option>
-                <option value="field4">Cyber Security</option>
-                <option value="field5">IT</option>
-                <option value="field5">Accounting</option>
+            <option value="AI">Artifical Intelligence</option>
+            <option value="CS">Cyber Security</option>
+            <option value="HCI">Human Computing Interactions</option>
+            <option value="ML">Machine Learning</option>
+            <option value="SE">Software Engineering</option>
+            <option value="UCD">User Centered Design</option>
+            <option value="WD">Web Development</option>
         </select>
         
         <label for="projectYear">Project Year:</label>
@@ -63,6 +63,11 @@
 <!-- File input for image -->
 <label for="imageUpload">Image Upload (Drag Images To Add Multiple):</label>
 <input type="file" id="imageUpload" name="imageUpload[]" accept="image/*" multiple>
+
+        <div class="checkbox-section">
+            <input type="checkbox" id="OpenToWork" name="OpenToWork">
+            <label for="OpenToWork">Open To Work</label>
+        </div>
     
         <div class="checkbox-section">
             <input type="checkbox" id="includeAuthorDetails" name="includeAuthorDetails">
