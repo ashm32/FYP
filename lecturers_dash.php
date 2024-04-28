@@ -1,5 +1,49 @@
 <?php
+
 session_start();
+
+// Define filter parameters
+$field = isset($_GET['field']) ? $_GET['field'] : 'all';
+$year = isset($_GET['year']) ? $_GET['year'] : 'all';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'recent';
+
+// Build the WHERE clause based on filter parameters
+$where_clause = "WHERE projects.inHallOfFame = 0";
+if ($field !== 'all') {
+    $where_clause .= " AND field = '$field'";
+}
+if ($year !== 'all') {
+    // Make sure the year format matches what's stored in the database
+    $where_clause .= " AND projectYear = '$year'";
+}
+
+// Get total number of projects after applying filters
+$total_query = "SELECT COUNT(DISTINCT projects.id) AS total FROM projects LEFT JOIN project_images ON projects.id = project_images.project_id $where_clause";
+$total_result = mysqli_query($connProject, $total_query);
+$total_row = mysqli_fetch_assoc($total_result);
+$total_projects = $total_row['total'];
+
+// Calculate total pages based on the total number of filtered projects and results per page
+$total_pages = ceil($total_projects / $projects_per_page);
+
+// Get projects for the current page with applied filters and sorting
+$query = "SELECT DISTINCT projects.id, projects.projectName, projects.projectSummary, projects.authorEmail, project_images.image_path, projects.score 
+          FROM projects 
+          LEFT JOIN project_images ON projects.id = project_images.project_id 
+          $where_clause 
+          ORDER BY ";
+
+// Determine the sorting order based on the selected option
+if ($sort === 'most-liked') {
+    $query .= "projects.score DESC";
+} else {
+    // Default to sorting by most recent (greatest ID to lowest)
+    $query .= "projects.id DESC";
+}
+
+$query .= " LIMIT $projects_per_page OFFSET $offset";
+
+$result = mysqli_query($connProject, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,40 +66,40 @@ session_start();
             <li><a href="logout.php">Logout</a></li>
         </ul>        
     </nav>
+    <!-- Filter Section -->
+    <section class="filter">
+            <form id="filter-form" action="lecturers_dash.php" method="GET">
+                <label for="field">Filter by Field:</label>
+                <select id="field" name="field">
+                    <option value="all">All Fields</option>
+                    <option value="field1">Computer Science</option>
+                    <option value="field2">Engineering</option>
+                    <option value="field3">Business</option>
+                    <option value="field4">Cyber Security</option>
+                    <option value="field5">IT</option>
+                </select>
 
+                <label for="year">Filter by Year:</label>
+                <select id="year" name="year">
+                    <option value="all">All Years</option>
+                    <option value="2024">2022</option>
+                    <option value="2023">2022</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+
+                <label for="sort">Sort by:</label>
+                <select id="sort" name="sort">
+                    <option value="most-liked">Most Liked</option>
+                    <option value="recent">Recent</option>
+                </select>
+
+                <button type="submit" id="filter-button">Filter</button>
+            </form>
+        </section>
     <!-- Project List -->
     <section class="project-list">
         <h2>Review Projects Submitted</h2>
-        <!-- Filter Section -->
-        <section class="filter">
-            <label for="field">Filter by Field:</label>
-            <select id="field">
-                <option value="all">All Fields</option>
-                <option value="field1">Computer Science</option>
-                <option value="field2">Engineering</option>
-                <option value="field2">Business</option>
-                <option value="field2">Cyber Security</option>
-                <option value="field2">IT</option>
-            </select>
-
-            <label for="year">Filter by Year:</label>
-            <select id="year">
-                <option value="all">All Years</option>
-                <option value="2024">2022</option>
-                <option value="2023">2022</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-            </select>
-
-            <label for="sort">Sort by:</label>
-            <select id="sort">
-                <option value="most-liked">Most Liked</option>
-                <option value="recent">Recent</option>
-            </select>
-
-            <button id="filter-button">Filter</button>
-        </section>
-
         <?php
         // Include the database connection file
         include 'db_connection.php';
@@ -88,5 +132,14 @@ session_start();
 
     <script defer src="script.js"></script>
     <script defer src="ajaxScript.js"></script>
+    <script>
+        // Add event listener to the filter form submission
+        document.getElementById('filter-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            var formData = new FormData(this); // Get form data
+            var queryString = new URLSearchParams(formData).toString(); // Convert form data to query string
+            window.location.href = 'lecturers_dash.php?' + queryString; // Redirect to lecturers_dash.php with filter parameters
+        });
+    </script>
 </body>
 </html>

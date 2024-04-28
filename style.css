@@ -602,3 +602,14 @@ input {
         display: block;
     }
 }
+/* For desktop */
+@media screen and (min-width: 1024px) {
+}
+
+/* For tablets */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+}
+
+/* For mobile */
+@media screen and (max-width: 767px) {
+}

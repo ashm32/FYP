@@ -7,14 +7,14 @@ if (isset($_GET['project_id']) && !empty($_GET['project_id'])) {
     // Include the database connection file
     include 'db_connection.php';
 
-    // SQL- update the project status in the database
+    // Prepare and execute the SQL query to update the project status in the database
     $query = "UPDATE projects SET inHallOfFame = 1 WHERE id = ?";
     $stmt = $connProject->prepare($query);
     $stmt->bind_param("i", $project_id);
     $stmt->execute();
     $stmt->close();
     
-    // Redirect back to index.php depending on project_id 
+    // Redirect back to index.php with the project_id as parameter
     header("Location: index.php?id=$project_id");
     exit();
 } else {
