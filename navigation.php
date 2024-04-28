@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Function to determine the user type based on session or other criteria
+// Function to determine the user type (stident/lecturer)
 function getUserType() {
     if (isset($_SESSION['user_type'])) {
         return $_SESSION['user_type'];

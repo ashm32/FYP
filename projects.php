@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
         <div class="section">
             <h2>Project Walkthrough :</h2>
             <?php
-            // Split the file paths by comma to get an array of file paths
+            // Splitting the file paths using , to get an array of file paths
             $videoPaths = explode(',', $project['videoUpload']);
             foreach ($videoPaths as $videoPath) {
             ?>
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
 
                 // Check if there are images to display
                 if ($imageResult && mysqli_num_rows($imageResult) > 0) {
-                    $index = 0; // Initialize index for the slides
+                    $index = 0; // Initialise index for the slides
                     while ($image = mysqli_fetch_assoc($imageResult)) {
                 ?>
                         <div class="mySlides fade">
@@ -94,7 +94,7 @@ if (isset($_GET['id'])) {
             <br>
             <div style="text-align:center">
                 <?php
-                // Add dots for each slide
+                // Add dots as buttons for each slide
                 for ($i = 0; $i < $index; $i++) {
                 ?>
                     <span class="dot" onclick="currentSlide(<?php echo $i + 1; ?>)"></span>

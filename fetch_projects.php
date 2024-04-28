@@ -29,8 +29,6 @@ $total_pages = ceil($total_projects / $results_per_page);
 $projectHtml = '';
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        // Generate HTML for each project item
-        // Append it to $projectHtml
     }
 } else {
     // No projects found
@@ -40,8 +38,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 // Generate pagination HTML
 $paginationHtml = '';
 if ($total_pages > 1) {
-    // Generate pagination HTML with links for each page
-    // Append it to $paginationHtml
 }
 
 // Prepare JSON response

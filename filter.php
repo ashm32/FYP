@@ -26,7 +26,7 @@ if ($field !== 'all' || $year !== 'all') {
     }
 
     if ($year !== 'all') {
-        // Make sure the year format matches what's stored in the database
+        // Making sure the year format matches what's stored in the database
         $query .= " projectYear = '$year'";
     }
 

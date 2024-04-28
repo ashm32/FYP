@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var year = document.getElementById('year').value;
         var sort = document.getElementById('sort').value;
 
-        // Check if the filter values have changed
+        // Check if the filter inputs have changed
         if (field !== sessionStorage.getItem('filterField') || year !== sessionStorage.getItem('filterYear') || sort !== sessionStorage.getItem('filterSort')) {
-            // Store filter values in sessionStorage
+            // Store filter inputs in sessionStorage
             sessionStorage.setItem('filterField', field);
             sessionStorage.setItem('filterYear', year);
             sessionStorage.setItem('filterSort', sort);
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchFilteredProjects(field, year, sort);
     });
 
-    // Apply stored filter values on page load
+    // Apply stored filter inputs on page load
     window.onload = function() {
         var storedField = sessionStorage.getItem('filterField');
         var storedYear = sessionStorage.getItem('filterYear');

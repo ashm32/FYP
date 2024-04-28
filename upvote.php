@@ -10,7 +10,7 @@ if (isset($_POST['projectId'])) {
 
     // Check if the user has already upvoted this project
     if (isset($_SESSION['upvoted_projects']) && in_array($projectId, $_SESSION['upvoted_projects'])) {
-        // Decrease the score by 1
+        // - the score by 1
         $updateQuery = "UPDATE projects SET score = score - 1 WHERE id = $projectId";
         $result = mysqli_query($connProject, $updateQuery);
 

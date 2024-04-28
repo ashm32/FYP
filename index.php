@@ -58,9 +58,6 @@ if ($sort === 'most-liked') {
 
 $query .= " LIMIT $projects_per_page OFFSET $offset";
 
-// Output the generated SQL query for debugging (comment out in production)
-// echo "Generated SQL Query: " . $query;
-
 $result = mysqli_query($connProject, $query);
 
 ?>

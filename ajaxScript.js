@@ -1,4 +1,4 @@
-// // ajaxScript.js
+// // not using
 // document.addEventListener('DOMContentLoaded', function () {
 //     // Wait for the DOM to be fully loaded
 

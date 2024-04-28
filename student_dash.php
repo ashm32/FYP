@@ -111,7 +111,7 @@ function validateForm() {
   var videoUpload = document.getElementById("videoUpload").files;
   var imageUpload = document.getElementById("imageUpload").files;
 
-  // Check if NO video or image is uploaded
+  // Check if no video or image is uploaded
   if (videoUpload.length === 0 && imageUpload.length === 0) {
     alert("Please upload a video or image.");
     event.preventDefault(); // Prevent form submission
@@ -132,7 +132,7 @@ function validateForm() {
     }
   }
 
-  // All validations passed, allow form submission
+  // All validations done, allow form submission
   return true;
 }
 
