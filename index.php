@@ -101,12 +101,13 @@ $result = mysqli_query($connProject, $query);
    <h1>Explore Aston's top projects</h1>
 </section>
 
+<!-- Filter Section -->
 <section class="filter">
     <form id="filter-form">
         <label for="field">Filter by Field:</label>
         <select id="field" name="field">
-        <option value="all">All Fields</option>
         <option value="" disabled selected>Select Project Field</option>
+        <option value="all">All Fields</option>
             <option value="AI">Artifical Intelligence</option>
             <option value="CS">Cyber Security</option>
             <option value="HCI">Human Computing Interactions</option>
@@ -127,11 +128,9 @@ $result = mysqli_query($connProject, $query);
         </select>
         <label>
     
-        <input type="checkbox" id="openToWork" name="openToWork"> Open to Work
-        
-        <label for="sort">Sort by:</label>
+        <label for="sort">Sort by Most:</label>
         <select id="sort" name="sort">
-            <option value="most-liked">Most Liked</option>
+            <option value="most-liked">Liked</option>
             <option value="recent">Recent</option>
         </select>
 
@@ -141,11 +140,11 @@ $result = mysqli_query($connProject, $query);
                 <option value="<?php echo $option; ?>" <?php if ($projects_per_page == $option) echo 'selected'; ?>><?php echo $option; ?></option>
             <?php } ?>
         </select>
+        <input type="checkbox" id="openToWork" name="openToWork"> Open to Work
 
         <button type="submit" id="filter-button">Filter</button>
     </form>
 </section>
-
 <section class="project-list-container">
    <div class="project-grid">
        <?php

@@ -68,35 +68,49 @@ $result = mysqli_query($connProject, $query);
     </nav>
     <!-- Filter Section -->
     <section class="filter">
-            <form id="filter-form" action="lecturers_dash.php" method="GET">
-                <label for="field">Filter by Field:</label>
-                <select id="field" name="field">
-                    <option value="all">All Fields</option>
-                    <option value="field1">Computer Science</option>
-                    <option value="field2">Engineering</option>
-                    <option value="field3">Business</option>
-                    <option value="field4">Cyber Security</option>
-                    <option value="field5">IT</option>
-                </select>
+    <form id="filter-form">
+        <label for="field">Filter by Field:</label>
+        <select id="field" name="field">
+        <option value="" disabled selected>Select Project Field</option>
+        <option value="all">All Fields</option>
+            <option value="AI">Artifical Intelligence</option>
+            <option value="CS">Cyber Security</option>
+            <option value="HCI">Human Computing Interactions</option>
+            <option value="ML">Machine Learning</option>
+            <option value="SE">Software Engineering</option>
+            <option value="UCD">User Centered Design</option>
+            <option value="WD">Web Development</option>
+        </select>
+        
 
-                <label for="year">Filter by Year:</label>
-                <select id="year" name="year">
-                    <option value="all">All Years</option>
-                    <option value="2024">2022</option>
-                    <option value="2023">2022</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                </select>
+        <label for="year">Filter by Year:</label>
+        <select id="year" name="year">
+            <option value="all">All Years</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+        </select>
+        <label>
+    
+        <label for="sort">Sort by Most:</label>
+        <select id="sort" name="sort">
+            <option value="most-liked">Liked</option>
+            <option value="recent">Recent</option>
+        </select>
 
-                <label for="sort">Sort by:</label>
-                <select id="sort" name="sort">
-                    <option value="most-liked">Most Liked</option>
-                    <option value="recent">Recent</option>
-                </select>
+        <label for="per_page">Projects per Page:</label>
+        <select id="per_page" name="per_page">
+            <?php foreach ($projects_per_page_options as $option) { ?>
+                <option value="<?php echo $option; ?>" <?php if ($projects_per_page == $option) echo 'selected'; ?>><?php echo $option; ?></option>
+            <?php } ?>
+        </select>
+        <input type="checkbox" id="openToWork" name="openToWork"> Open to Work
 
-                <button type="submit" id="filter-button">Filter</button>
-            </form>
-        </section>
+        <button type="submit" id="filter-button">Filter</button>
+    </form>
+</section>
+
     <!-- Project List -->
     <section class="project-list">
         <h2>Review Projects Submitted</h2>

@@ -49,7 +49,6 @@
         <label for="projectYear">Project Year:</label>
         <select id="projectYear" name="projectYear" required>
             <option value="" disabled selected>Select Project Year</option>
-            <option value="all">All Years</option>
                 <option value="2024">2024</option>
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
@@ -95,37 +94,48 @@
     <script defer src="ajaxScript.js"></script>
     <script>
 function validateForm() {
-    var projectName = document.getElementById("projectName").value.trim();
-    var projectSummary = document.getElementById("projectSummary").value.trim();
-    var projectDetails = document.getElementById("projectDetails").value.trim();
-    var projectField = document.getElementById("projectField").value;
-    var projectYear = document.getElementById("projectYear").value;
-    var videoUpload = document.getElementById("videoUpload").value.trim();
-    var imageUpload = document.getElementById("imageUpload").value.trim();
+  var projectName = document.getElementById("projectName").value.trim();
+  var projectSummary = document.getElementById("projectSummary").value.trim();
+  var projectDetails = document.getElementById("projectDetails").value.trim();
+  var projectField = document.getElementById("projectField").value;
+  var projectYear = document.getElementById("projectYear").value;
 
-    // Check if any of the required fields are empty or contain only spaces
-    if (projectName === "" || projectSummary === "" || projectDetails === "" ||
-        projectField === "" || projectYear === "" || videoUpload === "" || imageUpload === "") {
-        alert("Please fill in all required fields.");
-        return false; // Prevent form submission
+  // Check if any of the required fields are empty or contain only spaces
+  if (projectName === "" || projectSummary === "" || projectDetails === "" ||
+      projectField === "" || projectYear === "") {
+    alert("Please fill in all required fields.");
+    return false; // Prevent form submission
+  }
+
+  // Access uploaded files
+  var videoUpload = document.getElementById("videoUpload").files;
+  var imageUpload = document.getElementById("imageUpload").files;
+
+  // Check if NO video or image is uploaded
+  if (videoUpload.length === 0 && imageUpload.length === 0) {
+    alert("Please upload a video or image.");
+    event.preventDefault(); // Prevent form submission
+    return false;
+  }
+
+  // Check if including author details is selected
+  var includeAuthorDetails = document.getElementById("includeAuthorDetails").checked;
+  if (includeAuthorDetails) {
+    var authorFirstName = document.getElementById("authorFirstName").value.trim();
+    var authorLastName = document.getElementById("authorLastName").value.trim();
+    var authorEmail = document.getElementById("authorEmail").value.trim();
+
+    // Check if any of the author details fields are empty or contain only spaces
+    if (authorFirstName === "" || authorLastName === "" || authorEmail === "") {
+      alert("Please fill in all author details.");
+      return false; // Prevent form submission
     }
+  }
 
-    // Check if including author details is selected
-    var includeAuthorDetails = document.getElementById("includeAuthorDetails").checked;
-    if (includeAuthorDetails) {
-        var authorFirstName = document.getElementById("authorFirstName").value.trim();
-        var authorLastName = document.getElementById("authorLastName").value.trim();
-        var authorEmail = document.getElementById("authorEmail").value.trim();
-
-        // Check if any of the author details fields are empty or contain only spaces
-        if (authorFirstName === "" || authorLastName === "" || authorEmail === "") {
-            alert("Please fill in all author details.");
-            return false; // Prevent form submission
-        }
-    }
-
-    return true; // Allow form submission
+  // All validations passed, allow form submission
+  return true;
 }
+
 </script>
 
 
